@@ -1,0 +1,6 @@
+@PersonalFinanceApiNetCore_HostAddress = http://localhost:5120
+
+GET {{PersonalFinanceApiNetCore_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
