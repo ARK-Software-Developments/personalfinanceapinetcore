@@ -6,3 +6,9 @@
 /PersonalFinanceApiNetCore/obj
 /PersonalFinanceApiNetCore/bin/Debug/net8.0
 /PersonalFinanceApiNetCore/bin/Release/net8.0
+/PersonalFinanceApiNetCoreBL/bin/Debug/net8.0
+/PersonalFinanceApiNetCoreBL/obj
+/PersonalFinanceApiNetCoreDataMapper/bin/Debug/net8.0
+/PersonalFinanceApiNetCoreDataMapper/obj
+/PersonalFinanceApiNetCoreModel/bin
+/PersonalFinanceApiNetCoreModel/obj
