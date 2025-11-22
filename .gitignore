@@ -5,3 +5,4 @@
 /.vs
 /PersonalFinanceApiNetCore/obj
 /PersonalFinanceApiNetCore/bin/Debug/net8.0
+/PersonalFinanceApiNetCore/bin/Release/net8.0
