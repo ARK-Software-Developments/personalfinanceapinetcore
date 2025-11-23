@@ -16,5 +16,15 @@
         {
             return EntidadesDataMapper.GetAll();
         }
+
+        /// <summary>
+        /// Método para obtener un solo registro de entidades.
+        /// </summary>
+        /// <param name="id">Id del registro.</param>
+        /// <returns>Lista de Entidad.</returns>
+        public List<Entidad> GetId(int id)
+        {
+            return EntidadesDataMapper.GetId(id);
+        }
     }
 }

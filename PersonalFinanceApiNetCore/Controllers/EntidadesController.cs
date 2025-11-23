@@ -39,7 +39,32 @@
                 Meta = new Meta()
                 {
                     Metodo = "get",
-                    Operacion = "getEntidades",
+                    Operacion = "GetAll",
+                    Recurso = string.Empty,
+                },
+                Errores = null,
+                Data = entidades,
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// GetId.
+        /// </summary>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPost(Name = "entidades/{id}")]
+        public GeneralResponse GetId(int id)
+        {
+            List<Entidad> entidades = new EntidadesBL().GetId(id);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "GetId",
                     Recurso = string.Empty,
                 },
                 Errores = null,
