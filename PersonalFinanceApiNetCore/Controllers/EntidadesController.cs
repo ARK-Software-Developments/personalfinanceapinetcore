@@ -40,7 +40,7 @@ namespace PersonalFinanceApiNetCore.Controllers
                 Meta = new Meta()
                 {
                     Metodo = "get",
-                    Operacion = "GetAll",
+                    Operacion = "getall",
                     Recurso = string.Empty,
                 },
                 Errores = null,
@@ -66,7 +66,7 @@ namespace PersonalFinanceApiNetCore.Controllers
                 Meta = new Meta()
                 {
                     Metodo = "post",
-                    Operacion = "GetId",
+                    Operacion = "get/{id}",
                     Recurso = string.Empty,
                 },
                 Data = entidades,
@@ -91,7 +91,7 @@ namespace PersonalFinanceApiNetCore.Controllers
                 Meta = new Meta()
                 {
                     Metodo = "post",
-                    Operacion = "GetId",
+                    Operacion = "create",
                     Recurso = string.Empty,
                 },
                 Data = entidades,
@@ -116,7 +116,7 @@ namespace PersonalFinanceApiNetCore.Controllers
                 Meta = new Meta()
                 {
                     Metodo = "post",
-                    Operacion = "GetId",
+                    Operacion = "update",
                     Recurso = string.Empty,
                 },
                 Data = entidades,
