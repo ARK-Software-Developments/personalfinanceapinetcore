@@ -1,8 +1,9 @@
 ﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+    using MySql.Data.MySqlClient;
     using System.Data;
     using System.Data.Common;
-    using MySql.Data.MySqlClient;
+    using System.Reflection.PortableExecutable;
 
     /// <summary>
     /// Clase de conexion a la bd.
@@ -27,20 +28,14 @@
             this.Connection.Open();
         }
 
-        public DbDataReader GetDataReader(string spCommandName)
+        public MySqlDataReader GetDataReader(string spCommandName)
         {
             MySqlCommand cmd = new (spCommandName, this.Connection)
             {
                 CommandType = CommandType.StoredProcedure,
             };
 
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    return reader;
-                }
-            }
+            return cmd.ExecuteReader();
         }
     }
 }

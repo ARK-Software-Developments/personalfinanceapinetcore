@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PersonalFinanceApiNetCoreBL\PersonalFinanceApiNetCoreBL.csproj" />
     <ProjectReference Include="..\PersonalFinanceApiNetCoreModel\PersonalFinanceApiNetCoreModel.csproj" />
   </ItemGroup>
 

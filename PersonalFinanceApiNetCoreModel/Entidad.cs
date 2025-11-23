@@ -17,21 +17,18 @@
         /// <summary>
         /// Gets or sets propiedad Id.
         /// </summary>
-        [JsonRequired]
         [JsonProperty("id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Nombre.
         /// </summary>
-        [JsonRequired]
         [JsonProperty("entity")]
         public string Nombre { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Tipo.
         /// </summary>
-        [JsonRequired]
         [JsonProperty("entitytype")]
         public string Tipo { get; set; }
     }

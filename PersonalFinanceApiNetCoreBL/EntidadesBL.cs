@@ -1,5 +1,6 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
+    using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
@@ -7,9 +8,13 @@
     /// </summary>
     public class EntidadesBL
     {
+        /// <summary>
+        /// Método para obtener todos los registros de la entidad.
+        /// </summary>
+        /// <returns>Lista de Entidad.</returns>
         public List<Entidad> GetAll()
         {
-            return new List<Entidad>();
+            return EntidadesDataMapper.GetAll();
         }
     }
 }

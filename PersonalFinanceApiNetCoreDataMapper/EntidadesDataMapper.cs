@@ -1,4 +1,7 @@
-﻿namespace PersonalFinanceApiNetCoreDataMapper
+﻿using PersonalFinanceApiNetCoreModel;
+using System.Reflection.PortableExecutable;
+
+namespace PersonalFinanceApiNetCoreDataMapper
 {
     /// <summary>
     /// Clase EntidadesDataMapper.
@@ -12,11 +15,25 @@
         {
         }
 
-        public static void GetAll()
+        public static List<Entidad> GetAll()
         {
+            var lstEntidades = new List<Entidad>();
+
             var mysql = new MySQLConnectionDM();
 
-            var dr = mysql.GetDataReader("spEntitiesGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spEntitiesGetAll");
+
+            Entidad entidad = new Entidad();
+            while (mySqlDataReader.Read())
+            {
+                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
+                entidad.Nombre = mySqlDataReader["entity"].ToString();
+                entidad.Tipo = mySqlDataReader["entitytype"].ToString();
+                lstEntidades.Add(entidad);
+                entidad = new Entidad();
+            }
+
+            return lstEntidades;
         }
     }
 }
