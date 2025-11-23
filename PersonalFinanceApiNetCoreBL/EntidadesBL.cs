@@ -26,5 +26,24 @@
         {
             return EntidadesDataMapper.GetId(id);
         }
+
+        /// <summary>
+        /// Método para obtener un solo registro de entidades.
+        /// </summary>
+        /// <param name="operacion">Operacion Create/Update.</param>
+        /// <param name="parametros">Informacion a agregar/actualizar.</param>
+        /// <returns>Lista de Entidad.</returns>
+        public long AddUpdateEntity(string operacion, List<Parametro> parametros)
+        {
+
+            if (operacion == "create")
+            {
+                return EntidadesDataMapper.AddEntity(parametros);
+            }
+            else
+            {
+                return EntidadesDataMapper.UpdateEntity(parametros);
+            }
+        }
     }
 }

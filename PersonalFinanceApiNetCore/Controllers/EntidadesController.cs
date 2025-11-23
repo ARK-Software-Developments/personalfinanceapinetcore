@@ -1,6 +1,7 @@
-﻿namespace PersonalFinanceApiNetCore.Controllers
+﻿
+
+namespace PersonalFinanceApiNetCore.Controllers
 {
-    using System.Net.Mime;
     using Microsoft.AspNetCore.Mvc;
     using PersonalFinanceApiNetCoreBL;
     using PersonalFinanceApiNetCoreModel;
@@ -9,7 +10,7 @@
     /// EntidadesController.
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/entities")]
     [UserSystemTextJsonAttribute]
     public class EntidadesController : ControllerBase
     {
@@ -29,7 +30,7 @@
         /// </summary>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpGet(Name = "entidades")]
+        [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
             List<Entidad> entidades = new EntidadesBL().GetAll();
@@ -52,9 +53,10 @@
         /// <summary>
         /// GetId.
         /// </summary>
+        /// <param name="id">Id del registro.</param>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpPost(Name = "entidades/{id}")]
+        [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
             List<Entidad> entidades = new EntidadesBL().GetId(id);
@@ -67,7 +69,56 @@
                     Operacion = "GetId",
                     Recurso = string.Empty,
                 },
-                Errores = null,
+                Data = entidades,
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("create")]
+        public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
+        {
+           long entidades = new EntidadesBL().AddUpdateEntity("create", parametros);
+
+           var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "GetId",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+           return response;
+        }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("update")]
+        public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
+        {
+            long entidades = new EntidadesBL().AddUpdateEntity("update", parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "GetId",
+                    Recurso = string.Empty,
+                },
                 Data = entidades,
             };
 

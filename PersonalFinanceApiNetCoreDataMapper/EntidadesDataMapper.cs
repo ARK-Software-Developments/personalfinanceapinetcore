@@ -1,8 +1,7 @@
-﻿using PersonalFinanceApiNetCoreModel;
-using System.Reflection.PortableExecutable;
-
-namespace PersonalFinanceApiNetCoreDataMapper
+﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+    using PersonalFinanceApiNetCoreModel;
+
     /// <summary>
     /// Clase EntidadesDataMapper.
     /// </summary>
@@ -73,6 +72,26 @@ namespace PersonalFinanceApiNetCoreDataMapper
             }
 
             return lstEntidades;
+        }
+
+        /// <summary>
+        /// Metodo para agregar un registro nuevo a entidades.
+        /// </summary>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de entidades.</returns>
+        public static long AddEntity(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Add("spEntitiesAdd", parametros);
+        }
+
+        /// <summary>
+        /// Metodo para actualizar un registro nuevo a entidades.
+        /// </summary>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de entidades.</returns>
+        public static long UpdateEntity(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Update("spEntitiesUpdate", parametros);
         }
     }
 }

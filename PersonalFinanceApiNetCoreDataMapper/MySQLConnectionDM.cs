@@ -48,5 +48,45 @@
 
             return cmd.ExecuteReader();
         }
+
+        // <inheritdoc/>
+        public long Add(string spCommandName, List<Parametro>? parametros)
+        {
+            MySqlCommand cmd = new (spCommandName, this.Connection)
+            {
+                CommandType = CommandType.StoredProcedure,
+            };
+
+            if (parametros != null)
+            {
+                foreach (var parametro in parametros)
+                {
+                    cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                }
+            }
+
+            cmd.ExecuteNonQuery();
+
+            return cmd.LastInsertedId;
+        }
+
+        // <inheritdoc/>
+        public long Update(string spCommandName, List<Parametro>? parametros)
+        {
+            MySqlCommand cmd = new(spCommandName, this.Connection)
+            {
+                CommandType = CommandType.StoredProcedure,
+            };
+
+            if (parametros != null)
+            {
+                foreach (var parametro in parametros)
+                {
+                    cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                }
+            }
+
+            return cmd.ExecuteNonQuery();
+        }
     }
 }
