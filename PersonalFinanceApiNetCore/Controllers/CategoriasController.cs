@@ -7,20 +7,20 @@ namespace PersonalFinanceApiNetCore.Controllers
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// EntidadesController.
+    /// CategoriasController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/entities")]
+    [Route("api/v1/categories")]
     [UserSystemTextJsonAttribute]
-    public class EntidadesController : ControllerBase
+    public class CategoriasController : ControllerBase
     {
-        private readonly ILogger<EntidadesController> _logger;
+        private readonly ILogger<CategoriasController> _logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntidadesController"/> class.
+        /// Initializes a new instance of the <see cref="CategoriasController"/> class.
         /// </summary>
         /// <param name="logger">ILogger.</param>
-        public EntidadesController(ILogger<EntidadesController> logger)
+        public CategoriasController(ILogger<CategoriasController> logger)
         {
             _logger = logger;
         }
@@ -33,7 +33,7 @@ namespace PersonalFinanceApiNetCore.Controllers
         [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
-            List<Entidad> entidades = new EntidadesBL().GetAll();
+            List<Categoria> entidades = new CategoriasBL().GetAll();
 
             var response = new GeneralResponse()
             {
@@ -59,7 +59,7 @@ namespace PersonalFinanceApiNetCore.Controllers
         [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
-            List<Entidad> entidades = new EntidadesBL().GetId(id);
+            List<Categoria> entidades = new CategoriasBL().GetId(id);
 
             var response = new GeneralResponse()
             {
@@ -84,7 +84,7 @@ namespace PersonalFinanceApiNetCore.Controllers
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new EntidadesBL().AddUpdateEntity("create", parametros);
+           long entidades = new CategoriasBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
@@ -109,7 +109,7 @@ namespace PersonalFinanceApiNetCore.Controllers
         [HttpPut("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new EntidadesBL().AddUpdateEntity("update", parametros);
+            long entidades = new CategoriasBL().AddUpdateEntity("update", parametros);
 
             var response = new GeneralResponse()
             {
