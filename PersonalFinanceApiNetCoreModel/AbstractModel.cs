@@ -5,14 +5,8 @@
     /// <summary>
     /// Clase abstract AbstractModel.
     /// </summary>
-    public abstract class AbstractModel
+    public abstract class AbstractModel : AbstractModelExternder
     {
-        /// <summary>
-        /// Gets or sets propiedad Id.
-        /// </summary>
-        [JsonPropertyOrder(1)]
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets or sets propiedad Nombre/category.
         /// </summary>
