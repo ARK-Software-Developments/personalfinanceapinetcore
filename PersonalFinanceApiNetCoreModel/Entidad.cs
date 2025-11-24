@@ -19,6 +19,6 @@
         /// Gets or sets propiedad Tipo.
         /// </summary>
         [JsonPropertyOrder(3)]
-        public string Tipo { get; set; }
+        public string? Tipo { get; set; }
     }
 }

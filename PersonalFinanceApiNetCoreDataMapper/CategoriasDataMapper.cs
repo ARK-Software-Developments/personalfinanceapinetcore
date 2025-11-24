@@ -1,11 +1,13 @@
 ﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+    using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
+    using PersonalFinanceApiNetCoreModel.Interfaces;
 
     /// <summary>
     /// Clase CategoriasDataMapper.
     /// </summary>
-    public class CategoriasDataMapper
+    public class CategoriasDataMapper : IDataMapper
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoriasDataMapper"/> class.
@@ -17,8 +19,9 @@
         /// <summary>
         /// Metodo para obtener todos los registros de categorias.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <returns>Lista de categorias.</returns>
-        public static List<Categoria> GetAll()
+        public List<T> GetAll<T>()
         {
             var lstEntidades = new List<Categoria>();
 
@@ -26,24 +29,21 @@
 
             var mySqlDataReader = mysql.GetDataReader("spCategoriesGetAll");
 
-            Categoria entidad = new Categoria();
             while (mySqlDataReader.Read())
             {
-                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
-                entidad.Nombre = mySqlDataReader["category"].ToString();
-                lstEntidades.Add(entidad);
-                entidad = new Categoria();
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Categoria>));
         }
 
         /// <summary>
         /// Metodo para obtener un registro de categorias.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static List<Categoria> GetId(int id)
+        public List<T> GetId<T>(int id)
         {
             var lstEntidades = new List<Categoria>();
 
@@ -60,16 +60,12 @@
 
             var mySqlDataReader = mysql.GetDataReader("spCategoriesGetId", parametros);
 
-            Categoria entidad = new Categoria();
             while (mySqlDataReader.Read())
             {
-                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
-                entidad.Nombre = mySqlDataReader["category"].ToString();
-                lstEntidades.Add(entidad);
-                entidad = new Categoria();
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Categoria>));
         }
 
         /// <summary>
@@ -77,7 +73,7 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static long AddEntity(List<Parametro> parametros)
+        public long AddEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Add("spCategoriesAdd", parametros);
         }
@@ -87,9 +83,38 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static long UpdateEntity(List<Parametro> parametros)
+        public long UpdateEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Update("spCategoriesUpdate", parametros);
+        }
+
+        /// <summary>
+        /// Mapeo de registro.
+        /// </summary>
+        /// <param name="mySqlDataReader">MySqlDataReader.</param>
+        /// <returns>Entidad respectiva.</returns>
+        private Categoria MapperData(MySqlDataReader mySqlDataReader)
+        {
+            Categoria entidad = new ()
+            {
+                Id = Convert.ToInt32(mySqlDataReader["id"]),
+                Nombre = mySqlDataReader["category"].ToString(),
+            };
+
+            return entidad;
+        }
+    }
+
+    internal record struct NewStruct<T>(List<T> Item1, object Item2)
+    {
+        public static implicit operator (List<T>, object)(NewStruct<T> value)
+        {
+            return (value.Item1, value.Item2);
+        }
+
+        public static implicit operator NewStruct<T>((List<T>, object) value)
+        {
+            return new NewStruct<T>(value.Item1, value.Item2);
         }
     }
 }

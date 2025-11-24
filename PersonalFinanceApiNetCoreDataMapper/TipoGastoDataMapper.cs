@@ -2,11 +2,12 @@
 {
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
+    using PersonalFinanceApiNetCoreModel.Interfaces;
 
     /// <summary>
     /// Clase TipoGastoDataMapper.
     /// </summary>
-    public class TipoGastoDataMapper
+    public class TipoGastoDataMapper : IDataMapper
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TipoGastoDataMapper"/> class.
@@ -18,8 +19,9 @@
         /// <summary>
         /// Metodo para obtener todos los registros.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <returns>Lista de categorias.</returns>
-        public static List<TipoGasto> GetAll()
+        public List<T> GetAll<T>()
         {
             var lstEntidades = new List<TipoGasto>();
 
@@ -29,18 +31,19 @@
 
             while (mySqlDataReader.Read())
             {
-                lstEntidades.Add(MapperData(mySqlDataReader));
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<TipoGasto>));
         }
 
         /// <summary>
         /// Metodo para obtener un registro.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static List<TipoGasto> GetId(int id)
+        public List<T> GetId<T>(int id)
         {
             var lstEntidades = new List<TipoGasto>();
 
@@ -59,10 +62,10 @@
 
             while (mySqlDataReader.Read())
             {
-                lstEntidades.Add(MapperData(mySqlDataReader));
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<TipoGasto>));
         }
 
         /// <summary>
@@ -70,7 +73,7 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static long AddEntity(List<Parametro> parametros)
+        public long AddEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Add("spTypeOfExpenseAdd", parametros);
         }
@@ -80,7 +83,7 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static long UpdateEntity(List<Parametro> parametros)
+        public long UpdateEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Update("spTypeOfExpenseUpdate", parametros);
         }
@@ -90,7 +93,7 @@
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
         /// <returns>Entidad respectiva.</returns>
-        private static TipoGasto MapperData(MySqlDataReader mySqlDataReader)
+        private TipoGasto MapperData(MySqlDataReader mySqlDataReader)
         {
             TipoGasto entidad = new ()
             {

@@ -3,6 +3,7 @@
 namespace PersonalFinanceApiNetCore.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using PersonalFinanceApiNetCoreBL;
     using PersonalFinanceApiNetCoreModel;
 
@@ -22,7 +23,7 @@ namespace PersonalFinanceApiNetCore.Controllers
         /// <param name="logger">ILogger.</param>
         public CategoriasController(ILogger<CategoriasController> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
         /// <summary>
@@ -33,6 +34,8 @@ namespace PersonalFinanceApiNetCore.Controllers
         [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
+            this._logger.LogInformation($"Inicio de getall pata ${this.RouteData.ToString()}");
+
             List<Categoria> entidades = new CategoriasBL().GetAll();
 
             var response = new GeneralResponse()

@@ -8,13 +8,23 @@
     /// </summary>
     public class CategoriasBL
     {
+        private CategoriasDataMapper mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategoriasBL"/> class.
+        /// </summary>
+        public CategoriasBL()
+        {
+            this.mapper = new ();
+        }
+
         /// <summary>
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
         public List<Categoria> GetAll()
         {
-            return CategoriasDataMapper.GetAll();
+            return this.mapper.GetAll<Categoria>();
         }
 
         /// <summary>
@@ -24,7 +34,7 @@
         /// <returns>Lista de categorias.</returns>
         public List<Categoria> GetId(int id)
         {
-            return CategoriasDataMapper.GetId(id);
+            return this.mapper.GetId<Categoria>(id);
         }
 
         /// <summary>
@@ -35,14 +45,13 @@
         /// <returns>Lista de categorias.</returns>
         public long AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-
             if (operacion == "create")
             {
-                return CategoriasDataMapper.AddEntity(parametros);
+                return this.mapper.AddEntity(parametros);
             }
             else
             {
-                return CategoriasDataMapper.UpdateEntity(parametros);
+                return this.mapper.UpdateEntity(parametros);
             }
         }
     }

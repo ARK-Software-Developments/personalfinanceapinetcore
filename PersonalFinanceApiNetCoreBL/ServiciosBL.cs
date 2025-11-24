@@ -8,13 +8,23 @@
     /// </summary>
     public class ServiciosBL
     {
+        private ServiciosDataMapper mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServiciosBL"/> class.
+        /// </summary>
+        public ServiciosBL()
+        {
+            this.mapper = new ();
+        }
+
         /// <summary>
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
         public List<Servicio> GetAll()
         {
-            return ServiciosDataMapper.GetAll();
+            return this.mapper.GetAll<Servicio>();
         }
 
         /// <summary>
@@ -24,7 +34,7 @@
         /// <returns>Lista de entida.</returns>
         public List<Servicio> GetId(int id)
         {
-            return ServiciosDataMapper.GetId(id);
+            return this.mapper.GetId<Servicio>(id);
         }
 
         /// <summary>
@@ -35,14 +45,13 @@
         /// <returns>Lista de entida.</returns>
         public long AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-
             if (operacion == "create")
             {
-                return ServiciosDataMapper.AddEntity(parametros);
+                return this.mapper.AddEntity(parametros);
             }
             else
             {
-                return ServiciosDataMapper.UpdateEntity(parametros);
+                return this.mapper.UpdateEntity(parametros);
             }
         }
     }

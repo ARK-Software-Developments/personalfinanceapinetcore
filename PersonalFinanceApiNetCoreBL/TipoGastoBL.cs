@@ -8,13 +8,23 @@
     /// </summary>
     public class TipoGastoBL
     {
+        private TipoGastoDataMapper mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TipoGastoBL"/> class.
+        /// </summary>
+        public TipoGastoBL()
+        {
+            this.mapper = new ();
+        }
+
         /// <summary>
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
         public List<TipoGasto> GetAll()
         {
-            return TipoGastoDataMapper.GetAll();
+            return this.mapper.GetAll<TipoGasto>();
         }
 
         /// <summary>
@@ -24,7 +34,7 @@
         /// <returns>Lista de entida.</returns>
         public List<TipoGasto> GetId(int id)
         {
-            return TipoGastoDataMapper.GetId(id);
+            return this.mapper.GetId<TipoGasto>(id);
         }
 
         /// <summary>
@@ -35,14 +45,13 @@
         /// <returns>Lista de entida.</returns>
         public long AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-
             if (operacion == "create")
             {
-                return TipoGastoDataMapper.AddEntity(parametros);
+                return this.mapper.AddEntity(parametros);
             }
             else
             {
-                return TipoGastoDataMapper.UpdateEntity(parametros);
+                return this.mapper.UpdateEntity(parametros);
             }
         }
     }

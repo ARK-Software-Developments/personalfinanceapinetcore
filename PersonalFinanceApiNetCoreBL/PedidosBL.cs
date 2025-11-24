@@ -8,13 +8,23 @@
     /// </summary>
     public class PedidosBL
     {
+        private PedidosDataMapper mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PedidosBL"/> class.
+        /// </summary>
+        public PedidosBL()
+        {
+            this.mapper = new ();
+        }
+
         /// <summary>
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
         public List<Pedido> GetAll()
         {
-            return PedidosDataMapper.GetAll();
+            return this.mapper.GetAll<Pedido>();
         }
 
         /// <summary>
@@ -24,7 +34,7 @@
         /// <returns>Lista de entida.</returns>
         public List<Pedido> GetId(int id)
         {
-            return PedidosDataMapper.GetId(id);
+            return this.mapper.GetId<Pedido>(id);
         }
 
         /// <summary>
@@ -38,11 +48,11 @@
 
             if (operacion == "create")
             {
-                return PedidosDataMapper.AddEntity(parametros);
+                return this.mapper.AddEntity(parametros);
             }
             else
             {
-                return PedidosDataMapper.UpdateEntity(parametros);
+                return this.mapper.UpdateEntity(parametros);
             }
         }
     }

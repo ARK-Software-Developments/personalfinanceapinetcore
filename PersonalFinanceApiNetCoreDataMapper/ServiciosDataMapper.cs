@@ -2,11 +2,12 @@
 {
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
+    using PersonalFinanceApiNetCoreModel.Interfaces;
 
     /// <summary>
     /// Clase ServiciosDataMapper.
     /// </summary>
-    public class ServiciosDataMapper
+    public class ServiciosDataMapper : IDataMapper
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiciosDataMapper"/> class.
@@ -18,8 +19,9 @@
         /// <summary>
         /// Metodo para obtener todos los registros.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <returns>Lista de categorias.</returns>
-        public static List<Servicio> GetAll()
+        public List<T> GetAll<T>()
         {
             var lstEntidades = new List<Servicio>();
 
@@ -27,21 +29,21 @@
 
             var mySqlDataReader = mysql.GetDataReader("spServicesGetAll");
 
-            Servicio entidad = new ();
             while (mySqlDataReader.Read())
             {
-                lstEntidades.Add(MapperData(mySqlDataReader));
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Servicio>));
         }
 
         /// <summary>
         /// Metodo para obtener un registro.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static List<Servicio> GetId(int id)
+        public List<T> GetId<T>(int id)
         {
             var lstEntidades = new List<Servicio>();
 
@@ -58,13 +60,12 @@
 
             var mySqlDataReader = mysql.GetDataReader("spCategoriesGetId", parametros);
 
-            Servicio entidad = new ();
             while (mySqlDataReader.Read())
             {
-                lstEntidades.Add(MapperData(mySqlDataReader));
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Servicio>));
         }
 
         /// <summary>
@@ -72,7 +73,7 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static long AddEntity(List<Parametro> parametros)
+        public long AddEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Add("spCategoriesAdd", parametros);
         }
@@ -82,7 +83,7 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static long UpdateEntity(List<Parametro> parametros)
+        public long UpdateEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Update("spCategoriesUpdate", parametros);
         }
@@ -92,7 +93,7 @@
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
         /// <returns>Entidad respectiva.</returns>
-        private static Servicio MapperData(MySqlDataReader mySqlDataReader)
+        private Servicio MapperData(MySqlDataReader mySqlDataReader)
         {
             if (mySqlDataReader.RecordsAffected < 0)
             {

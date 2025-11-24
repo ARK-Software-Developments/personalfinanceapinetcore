@@ -11,6 +11,6 @@
         /// Gets or sets propiedad Nombre/category.
         /// </summary>
         [JsonPropertyOrder(2)]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
     }
 }

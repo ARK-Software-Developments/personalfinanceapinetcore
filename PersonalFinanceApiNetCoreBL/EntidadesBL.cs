@@ -8,13 +8,23 @@
     /// </summary>
     public class EntidadesBL
     {
+        private EntidadesDataMapper mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntidadesBL"/> class.
+        /// </summary>
+        public EntidadesBL()
+        {
+            this.mapper = new ();
+        }
+
         /// <summary>
         /// Método para obtener todos los registros de la entidad.
         /// </summary>
         /// <returns>Lista de Entidad.</returns>
         public List<Entidad> GetAll()
         {
-            return EntidadesDataMapper.GetAll();
+            return this.mapper.GetAll<Entidad>();
         }
 
         /// <summary>
@@ -24,7 +34,7 @@
         /// <returns>Lista de Entidad.</returns>
         public List<Entidad> GetId(int id)
         {
-            return EntidadesDataMapper.GetId(id);
+            return this.mapper.GetId<Entidad>(id);
         }
 
         /// <summary>
@@ -38,11 +48,11 @@
 
             if (operacion == "create")
             {
-                return EntidadesDataMapper.AddEntity(parametros);
+                return this.mapper.AddEntity(parametros);
             }
             else
             {
-                return EntidadesDataMapper.UpdateEntity(parametros);
+                return this.mapper.UpdateEntity(parametros);
             }
         }
     }

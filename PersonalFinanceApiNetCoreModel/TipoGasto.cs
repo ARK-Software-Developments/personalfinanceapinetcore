@@ -5,7 +5,7 @@
     /// <summary>
     /// Clase TipoGasto.
     /// </summary>
-    public class TipoGasto
+    public class TipoGasto : AbstractModelExternder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TipoGasto"/> class.
@@ -15,16 +15,10 @@
         }
 
         /// <summary>
-        /// Gets or sets propiedad Id.
-        /// </summary>
-        [JsonPropertyOrder(1)]
-        public int Id { get; set; }
-
-        /// <summary>
         /// Gets or sets propiedad Tipo.
         /// </summary>
         [JsonPropertyOrder(2)]
-        public string Tipo { get; set; }
+        public string? Tipo { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Categoria.

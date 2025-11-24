@@ -1,11 +1,13 @@
 ﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+    using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
+    using PersonalFinanceApiNetCoreModel.Interfaces;
 
     /// <summary>
     /// Clase EntidadesDataMapper.
     /// </summary>
-    public class EntidadesDataMapper
+    public class EntidadesDataMapper : IDataMapper
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EntidadesDataMapper"/> class.
@@ -17,8 +19,9 @@
         /// <summary>
         /// Metodo para obtener todos los registros de entidades.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <returns>Lista de entidades.</returns>
-        public static List<Entidad> GetAll()
+        public List<T> GetAll<T>()
         {
             var lstEntidades = new List<Entidad>();
 
@@ -26,25 +29,21 @@
 
             var mySqlDataReader = mysql.GetDataReader("spEntitiesGetAll");
 
-            Entidad entidad = new Entidad();
             while (mySqlDataReader.Read())
             {
-                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
-                entidad.Nombre = mySqlDataReader["entity"].ToString();
-                entidad.Tipo = mySqlDataReader["entitytype"].ToString();
-                lstEntidades.Add(entidad);
-                entidad = new Entidad();
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Entidad>));
         }
 
         /// <summary>
         /// Metodo para obtener un registro de entidades.
         /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de entidades.</returns>
-        public static List<Entidad> GetId(int id)
+        public List<T> GetId<T>(int id)
         {
             var lstEntidades = new List<Entidad>();
 
@@ -61,17 +60,12 @@
 
             var mySqlDataReader = mysql.GetDataReader("spEntitiesGetId", parametros);
 
-            Entidad entidad = new Entidad();
             while (mySqlDataReader.Read())
             {
-                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
-                entidad.Nombre = mySqlDataReader["entity"].ToString();
-                entidad.Tipo = mySqlDataReader["entitytype"].ToString();
-                lstEntidades.Add(entidad);
-                entidad = new Entidad();
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return lstEntidades;
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Entidad>));
         }
 
         /// <summary>
@@ -79,7 +73,7 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de entidades.</returns>
-        public static long AddEntity(List<Parametro> parametros)
+        public long AddEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Add("spEntitiesAdd", parametros);
         }
@@ -89,9 +83,26 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de entidades.</returns>
-        public static long UpdateEntity(List<Parametro> parametros)
+        public long UpdateEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Update("spEntitiesUpdate", parametros);
+        }
+
+        /// <summary>
+        /// Mapeo de registro.
+        /// </summary>
+        /// <param name="mySqlDataReader">MySqlDataReader.</param>
+        /// <returns>Entidad respectiva.</returns>
+        private Entidad MapperData(MySqlDataReader mySqlDataReader)
+        {
+            Entidad entidad = new ()
+            {
+                Id = Convert.ToInt32(mySqlDataReader["id"]),
+                Nombre = mySqlDataReader["entity"].ToString(),
+                Tipo = mySqlDataReader["entitytype"].ToString(),
+            };
+
+            return entidad;
         }
     }
 }

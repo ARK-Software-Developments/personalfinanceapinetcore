@@ -44,12 +44,12 @@
         /// Gets or sets propiedad TipoRecurso.
         /// </summary>
         [JsonPropertyOrder(6)]
-        public string TipoRecurso { get; set; }
+        public string? TipoRecurso { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Estado.
         /// </summary>
         [JsonPropertyOrder(7)]
-        public string Estado { get; set; }
+        public string? Estado { get; set; }
     }
 }
