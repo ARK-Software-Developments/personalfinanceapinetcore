@@ -12,3 +12,5 @@
 /PersonalFinanceApiNetCoreDataMapper/obj
 /PersonalFinanceApiNetCoreModel/bin
 /PersonalFinanceApiNetCoreModel/obj
+/PersonalFinanceApiNetCoreBL/bin/Release/net8.0
+/PersonalFinanceApiNetCoreDataMapper/bin/Release/net8.0
