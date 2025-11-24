@@ -1,6 +1,4 @@
-﻿
-
-namespace PersonalFinanceApiNetCore.Controllers
+﻿namespace PersonalFinanceApiNetCore.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using PersonalFinanceApiNetCoreBL;
