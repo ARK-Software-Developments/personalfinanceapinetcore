@@ -4,14 +4,14 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// Clase ServiciosDataMapper.
+    /// Clase PedidosDataMapper.
     /// </summary>
-    public class ServiciosDataMapper
+    public class PedidosDataMapper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServiciosDataMapper"/> class.
+        /// Initializes a new instance of the <see cref="PedidosDataMapper"/> class.
         /// </summary>
-        public ServiciosDataMapper()
+        public PedidosDataMapper()
         {
         }
 
@@ -19,15 +19,14 @@
         /// Metodo para obtener todos los registros.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public static List<Servicio> GetAll()
+        public static List<Pedido> GetAll()
         {
-            var lstEntidades = new List<Servicio>();
+            var lstEntidades = new List<Pedido>();
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("spServicesGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spOrdersGetAll");
 
-            Servicio entidad = new ();
             while (mySqlDataReader.Read())
             {
                 lstEntidades.Add(MapperData(mySqlDataReader));
@@ -41,9 +40,9 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static List<Servicio> GetId(int id)
+        public static List<Pedido> GetId(int id)
         {
-            var lstEntidades = new List<Servicio>();
+            var lstEntidades = new List<Pedido>();
 
             var mysql = new MySQLConnectionDM();
 
@@ -56,9 +55,8 @@
                 },
             ];
 
-            var mySqlDataReader = mysql.GetDataReader("spCategoriesGetId", parametros);
+            var mySqlDataReader = mysql.GetDataReader("spOrdersGetId", parametros);
 
-            Servicio entidad = new ();
             while (mySqlDataReader.Read())
             {
                 lstEntidades.Add(MapperData(mySqlDataReader));
@@ -74,7 +72,7 @@
         /// <returns>Lista de categorias.</returns>
         public static long AddEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Add("spCategoriesAdd", parametros);
+            return new MySQLConnectionDM().Add("spOrdersAdd", parametros);
         }
 
         /// <summary>
@@ -84,7 +82,7 @@
         /// <returns>Lista de categorias.</returns>
         public static long UpdateEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Update("spCategoriesUpdate", parametros);
+            return new MySQLConnectionDM().Update("spOrdersUpdate", parametros);
         }
 
         /// <summary>
@@ -92,20 +90,17 @@
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
         /// <returns>Entidad respectiva.</returns>
-        private static Servicio MapperData(MySqlDataReader mySqlDataReader)
+        private static Pedido MapperData(MySqlDataReader mySqlDataReader)
         {
-            if (mySqlDataReader.RecordsAffected < 0)
-            {
-                return new ();
-            }
-
-            Servicio entidad = new ()
+            Pedido entidad = new ()
             {
                 Id = Convert.ToInt32(mySqlDataReader["id"]),
-                Nombre = mySqlDataReader["servicename"].ToString(),
-                Monto = (int)mySqlDataReader["unit"],
-                MontoUnitario = (decimal)mySqlDataReader["amount"],
-                ValidoDesde = (DateTime)mySqlDataReader["validity"],
+                Numero = (int)mySqlDataReader["number"],
+                MontoTotal = (decimal)mySqlDataReader["totalamount"],
+                FechaPedido = (DateTime)mySqlDataReader["orderdate"],
+                FechaRecibido = mySqlDataReader["datereceived"] != DBNull.Value ? (DateTime)mySqlDataReader["datereceived"] : null,
+                TipoRecurso = mySqlDataReader["resourcetype"].ToString(),
+                Estado = mySqlDataReader["status"].ToString(),
             };
 
             return entidad;
