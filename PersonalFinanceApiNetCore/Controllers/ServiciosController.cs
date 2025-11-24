@@ -8,7 +8,7 @@
     /// ServiciosController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/servicios")]
+    [Route("api/v1/services")]
     [UserSystemTextJsonAttribute]
     public class ServiciosController : ControllerBase
     {
