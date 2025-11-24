@@ -5,7 +5,7 @@
     /// <summary>
     /// Clase Categoria.
     /// </summary>
-    public class Categoria
+    public class Categoria : AbstractModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Categoria"/> class.
@@ -13,17 +13,5 @@
         public Categoria()
         {
         }
-
-        /// <summary>
-        /// Gets or sets propiedad Id.
-        /// </summary>
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets propiedad Nombre/category.
-        /// </summary>
-        [JsonProperty("category")]
-        public string Nombre { get; set; }
     }
 }

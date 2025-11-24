@@ -5,20 +5,20 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// EntidadesController.
+    /// ServiciosController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/entities")]
+    [Route("api/v1/services")]
     [UserSystemTextJsonAttribute]
-    public class EntidadesController : ControllerBase
+    public class ServiciosController : ControllerBase
     {
-        private readonly ILogger<EntidadesController> _logger;
+        private readonly ILogger<ServiciosController> _logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntidadesController"/> class.
+        /// Initializes a new instance of the <see cref="ServiciosController"/> class.
         /// </summary>
         /// <param name="logger">ILogger.</param>
-        public EntidadesController(ILogger<EntidadesController> logger)
+        public ServiciosController(ILogger<ServiciosController> logger)
         {
             _logger = logger;
         }
@@ -31,7 +31,7 @@
         [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
-            List<Entidad> entidades = new EntidadesBL().GetAll();
+            List<Servicio> entidades = new ServiciosBL().GetAll();
 
             var response = new GeneralResponse()
             {
@@ -57,7 +57,7 @@
         [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
-            List<Entidad> entidades = new EntidadesBL().GetId(id);
+            List<Servicio> entidades = new ServiciosBL().GetId(id);
 
             var response = new GeneralResponse()
             {
@@ -82,7 +82,7 @@
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new EntidadesBL().AddUpdateEntity("create", parametros);
+           long entidades = new ServiciosBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
@@ -107,7 +107,7 @@
         [HttpPut("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new EntidadesBL().AddUpdateEntity("update", parametros);
+            long entidades = new ServiciosBL().AddUpdateEntity("update", parametros);
 
             var response = new GeneralResponse()
             {

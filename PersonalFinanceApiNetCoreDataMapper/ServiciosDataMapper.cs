@@ -1,51 +1,49 @@
 ﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+    using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// Clase CategoriasDataMapper.
+    /// Clase ServiciosDataMapper.
     /// </summary>
-    public class CategoriasDataMapper
+    public class ServiciosDataMapper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CategoriasDataMapper"/> class.
+        /// Initializes a new instance of the <see cref="ServiciosDataMapper"/> class.
         /// </summary>
-        public CategoriasDataMapper()
+        public ServiciosDataMapper()
         {
         }
 
         /// <summary>
-        /// Metodo para obtener todos los registros de categorias.
+        /// Metodo para obtener todos los registros.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public static List<Categoria> GetAll()
+        public static List<Servicio> GetAll()
         {
-            var lstEntidades = new List<Categoria>();
+            var lstEntidades = new List<Servicio>();
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("spCategoriesGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spServicesGetAll");
 
-            Categoria entidad = new Categoria();
+            Servicio entidad = new ();
             while (mySqlDataReader.Read())
             {
-                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
-                entidad.Nombre = mySqlDataReader["category"].ToString();
-                lstEntidades.Add(entidad);
-                entidad = new Categoria();
+                lstEntidades.Add(MapperData(mySqlDataReader));
             }
 
             return lstEntidades;
         }
 
         /// <summary>
-        /// Metodo para obtener un registro de categorias.
+        /// Metodo para obtener un registro.
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public static List<Categoria> GetId(int id)
+        public static List<Servicio> GetId(int id)
         {
-            var lstEntidades = new List<Categoria>();
+            var lstEntidades = new List<Servicio>();
 
             var mysql = new MySQLConnectionDM();
 
@@ -60,20 +58,17 @@
 
             var mySqlDataReader = mysql.GetDataReader("spCategoriesGetId", parametros);
 
-            Categoria entidad = new Categoria();
+            Servicio entidad = new Servicio();
             while (mySqlDataReader.Read())
             {
-                entidad.Id = Convert.ToInt32(mySqlDataReader["id"]);
-                entidad.Nombre = mySqlDataReader["category"].ToString();
-                lstEntidades.Add(entidad);
-                entidad = new Categoria();
+                lstEntidades.Add(MapperData(mySqlDataReader));
             }
 
             return lstEntidades;
         }
 
         /// <summary>
-        /// Metodo para agregar un registro nuevo a categorias.
+        /// Metodo para agregar un registro nuevo.
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
@@ -83,13 +78,32 @@
         }
 
         /// <summary>
-        /// Metodo para actualizar un registro nuevo a categorias.
+        /// Metodo para actualizar un registro.
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
         public static long UpdateEntity(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().Update("spCategoriesUpdate", parametros);
+        }
+
+        /// <summary>
+        /// Mapeo de registro.
+        /// </summary>
+        /// <param name="mySqlDataReader">MySqlDataReader.</param>
+        /// <returns>Entidad respectiva.</returns>
+        private static Servicio MapperData(MySqlDataReader mySqlDataReader)
+        {
+            Servicio entidad = new ()
+            {
+                Id = Convert.ToInt32(mySqlDataReader["id"]),
+                Nombre = mySqlDataReader["servicename"].ToString(),
+                Monto = (int)mySqlDataReader["unit"],
+                MontoUnitario = (decimal)mySqlDataReader["amount"],
+                ValidoDesde = (DateTime)mySqlDataReader["validity"],
+            };
+
+            return entidad;
         }
     }
 }
