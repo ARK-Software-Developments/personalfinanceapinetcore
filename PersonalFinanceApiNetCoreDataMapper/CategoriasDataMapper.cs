@@ -24,7 +24,7 @@
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("spCategoriasGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spCategoriesGetAll");
 
             Categoria entidad = new Categoria();
             while (mySqlDataReader.Read())
@@ -58,7 +58,7 @@
                 },
             ];
 
-            var mySqlDataReader = mysql.GetDataReader("spCategoriasGetId", parametros);
+            var mySqlDataReader = mysql.GetDataReader("spCategoriesGetId", parametros);
 
             Categoria entidad = new Categoria();
             while (mySqlDataReader.Read())
@@ -79,7 +79,7 @@
         /// <returns>Lista de categorias.</returns>
         public static long AddEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Add("spCategoriasAdd", parametros);
+            return new MySQLConnectionDM().Add("spCategoriesAdd", parametros);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@
         /// <returns>Lista de categorias.</returns>
         public static long UpdateEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Update("spCategoriasUpdate", parametros);
+            return new MySQLConnectionDM().Update("spCategoriesUpdate", parametros);
         }
     }
 }
