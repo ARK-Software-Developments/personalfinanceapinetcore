@@ -1,5 +1,9 @@
 ﻿namespace PersonalFinanceApiNetCore.Controllers
 {
+#pragma warning disable CS8625
+#pragma warning disable SA1309
+#pragma warning disable SA1009
+
     using Microsoft.AspNetCore.Mvc;
     using PersonalFinanceApiNetCoreBL;
     using PersonalFinanceApiNetCoreModel;
@@ -7,21 +11,16 @@
     /// <summary>
     /// EntidadesController.
     /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="EntidadesController"/> class.
+    /// </remarks>
+    /// <param name="logger">ILogger.</param>
     [ApiController]
     [Route("api/v1/entities")]
     [UserSystemTextJsonAttribute]
-    public class EntidadesController : ControllerBase
+    public class EntidadesController(ILogger<EntidadesController> logger) : ControllerBase
     {
-        private readonly ILogger<EntidadesController> _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EntidadesController"/> class.
-        /// </summary>
-        /// <param name="logger">ILogger.</param>
-        public EntidadesController(ILogger<EntidadesController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<EntidadesController> _logger = logger;
 
         /// <summary>
         /// GetAll.
