@@ -4,16 +4,16 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// Clase PedidosBL.
+    /// Clase PedidosDetalleBL.
     /// </summary>
-    public class PedidosBL
+    public class PedidosDetalleBL
     {
-        private PedidosDataMapper mapper;
+        private PedidosDetalleDataMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PedidosBL"/> class.
+        /// Initializes a new instance of the <see cref="PedidosDetalleBL"/> class.
         /// </summary>
-        public PedidosBL()
+        public PedidosDetalleBL()
         {
             this.mapper = new ();
         }
@@ -22,9 +22,9 @@
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public List<Pedido> GetAll()
+        public List<PedidoDetalle> GetAll()
         {
-            return this.mapper.GetAll<Pedido>();
+            return this.mapper.GetAll<PedidoDetalle>();
         }
 
         /// <summary>
@@ -32,9 +32,9 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de entida.</returns>
-        public List<Pedido> GetId(int id)
+        public List<PedidoDetalle> GetId(int id)
         {
-            return this.mapper.GetId<Pedido>(id);
+            return this.mapper.GetId<PedidoDetalle>(id);
         }
 
         /// <summary>

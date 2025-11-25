@@ -45,7 +45,6 @@
         /// <returns>Lista de Entidad.</returns>
         public long AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-
             if (operacion == "create")
             {
                 return this.mapper.AddEntity(parametros);
