@@ -1,5 +1,10 @@
 ﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+#pragma warning disable CS8618
+#pragma warning disable SA1600
+#pragma warning disable SA1201
+#pragma warning disable SA1202
+
     using System.Data;
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
@@ -73,7 +78,7 @@
         // <inheritdoc/>
         public long Update(string spCommandName, List<Parametro>? parametros)
         {
-            MySqlCommand cmd = new(spCommandName, this.Connection)
+            MySqlCommand cmd = new (spCommandName, this.Connection)
             {
                 CommandType = CommandType.StoredProcedure,
             };
