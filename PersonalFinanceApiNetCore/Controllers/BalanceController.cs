@@ -1,47 +1,40 @@
 ﻿namespace PersonalFinanceApiNetCore.Controllers
 {
+#pragma warning disable CS8625
+#pragma warning disable SA1309
+#pragma warning disable SA1009
+
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using PersonalFinanceApiNetCoreBL;
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// CategoriasController.
+    /// BalanceController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/categories")]
+    [Route("api/v1/balance")]
     [UserSystemTextJsonAttribute]
-    public class CategoriasController : ControllerBase
+    public class BalanceController(ILogger<BalanceController> logger) : ControllerBase
     {
-        private readonly ILogger<CategoriasController> _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CategoriasController"/> class.
-        /// </summary>
-        /// <param name="logger">ILogger.</param>
-        public CategoriasController(ILogger<CategoriasController> logger)
-        {
-            this._logger = logger;
-        }
+        private readonly ILogger<BalanceController> _logger = logger;
 
         /// <summary>
         /// GetAll.
         /// </summary>
+        /// <param name="ano">Año de ejercicio.</param>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpGet("getall")]
-        public GeneralResponse GetAll()
+        [HttpGet("getall/{ano}")]
+        public GeneralResponse GetAll(int ano)
         {
-            this._logger.LogInformation($"Inicio de getall pata ${this.RouteData.ToString()}");
-
-            List<Categoria> entidades = new CategoriasBL().GetAll();
+            List<Balance> entidades = new BalanceBL().GetAllByYear(ano);
 
             var response = new GeneralResponse()
             {
                 Meta = new Meta()
                 {
                     Metodo = "get",
-                    Operacion = "getall",
+                    Operacion = "getallbyyear",
                     Recurso = string.Empty,
                 },
                 Errores = null,
@@ -60,7 +53,7 @@
         [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
-            List<Categoria> entidades = new CategoriasBL().GetId(id);
+            List<Balance> entidades = new BalanceBL().GetId(id);
 
             var response = new GeneralResponse()
             {
@@ -85,7 +78,7 @@
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new CategoriasBL().AddUpdateEntity("create", parametros);
+           long entidades = new BalanceBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
@@ -110,7 +103,7 @@
         [HttpPut("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new CategoriasBL().AddUpdateEntity("update", parametros);
+            long entidades = new BalanceBL().AddUpdateEntity("update", parametros);
 
             var response = new GeneralResponse()
             {
