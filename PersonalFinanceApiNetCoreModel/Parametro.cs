@@ -1,5 +1,8 @@
 ﻿namespace PersonalFinanceApiNetCoreModel
 {
+#pragma warning disable CS8618
+#pragma warning disable SA1600
+
     /// <summary>
     /// Clase Parametros.
     /// </summary>

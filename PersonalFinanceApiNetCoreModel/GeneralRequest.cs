@@ -1,5 +1,7 @@
 ﻿namespace PersonalFinanceApiNetCoreModel
 {
+#pragma warning disable CS8618
+
     using Newtonsoft.Json;
 
     /// <summary>
@@ -11,7 +13,7 @@
         /// Initializes a new instance of the <see cref="GeneralRequest"/> class.
         /// </summary>
         public GeneralRequest()
-        { 
+        {
         }
 
         /// <summary>

@@ -1,7 +1,6 @@
 ﻿namespace PersonalFinanceApiNetCoreModel
 {
     using System.Text.Json.Serialization;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Clase Entidad.
