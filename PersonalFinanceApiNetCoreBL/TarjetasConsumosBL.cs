@@ -4,16 +4,16 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// Clase BalanceBL.
+    /// Clase TarjetasConsumosBL.
     /// </summary>
-    public class BalanceBL
+    public class TarjetasConsumosBL
     {
-        private BalanceDataMapper mapper;
+        private TarjetasConsumosDataMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BalanceBL"/> class.
+        /// Initializes a new instance of the <see cref="TarjetasConsumosBL"/> class.
         /// </summary>
-        public BalanceBL()
+        public TarjetasConsumosBL()
         {
             this.mapper = new ();
         }
@@ -22,9 +22,9 @@
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public List<Balance> GetAll()
+        public List<TarjetaConsumo> GetAll()
         {
-            return this.mapper.GetAll<Balance>();
+            return this.mapper.GetAll<TarjetaConsumo>();
         }
 
         /// <summary>
@@ -32,9 +32,9 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de entida.</returns>
-        public List<Balance> GetId(int id)
+        public List<TarjetaConsumo> GetId(int id)
         {
-            return this.mapper.GetId<Balance>(id);
+            return this.mapper.GetId<TarjetaConsumo>(id);
         }
 
         /// <summary>
@@ -60,9 +60,9 @@
         /// </summary>
         /// <param name="ano">Año.</param>
         /// <returns>Lista de categorias.</returns>
-        public List<Balance> GetAllByYear(int ano)
+        public List<TarjetaConsumo> GetAllByYear(int ano)
         {
-            return this.mapper.GetAll<Balance>(ano);
+            return this.mapper.GetAll<TarjetaConsumo>(ano);
         }
     }
 }

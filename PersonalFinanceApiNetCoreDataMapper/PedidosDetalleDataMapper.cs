@@ -19,6 +19,12 @@
         {
         }
 
+        /// <inheritdoc/>
+        public List<T> GetAll<T>(int ano)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Metodo para obtener todos los registros.
         /// </summary>

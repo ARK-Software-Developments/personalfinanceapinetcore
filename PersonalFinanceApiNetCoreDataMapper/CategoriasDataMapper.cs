@@ -16,6 +16,12 @@
         {
         }
 
+        /// <inheritdoc/>
+        public List<T> GetAll<T>(int ano)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Metodo para obtener todos los registros de categorias.
         /// </summary>
@@ -102,19 +108,6 @@
             };
 
             return entidad;
-        }
-    }
-
-    internal record struct NewStruct<T>(List<T> Item1, object Item2)
-    {
-        public static implicit operator (List<T>, object)(NewStruct<T> value)
-        {
-            return (value.Item1, value.Item2);
-        }
-
-        public static implicit operator NewStruct<T>((List<T>, object) value)
-        {
-            return new NewStruct<T>(value.Item1, value.Item2);
         }
     }
 }

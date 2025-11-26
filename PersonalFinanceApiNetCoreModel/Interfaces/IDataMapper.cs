@@ -8,6 +8,8 @@ namespace PersonalFinanceApiNetCoreModel.Interfaces
     {
         public List<T> GetAll<T>();
 
+        public List<T> GetAll<T>(int ano);
+
         public List<T> GetId<T>(int id);
 
         public long AddEntity(List<Parametro> parametros);
