@@ -2,7 +2,6 @@
 {
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
-    using System;
 
     /// <summary>
     /// Clase BalanceBL.
