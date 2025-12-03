@@ -58,7 +58,7 @@
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "get",
                     Operacion = "get/{id}",
                     Recurso = string.Empty,
                 },
@@ -73,7 +73,7 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
-        [HttpPost("create")]
+        [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
            long entidades = new PedidosBL().AddUpdateEntity("create", parametros);
@@ -82,7 +82,7 @@
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "put",
                     Operacion = "create",
                     Recurso = string.Empty,
                 },
@@ -97,7 +97,7 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
-        [HttpGet("update")]
+        [HttpPost("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
             long entidades = new PedidosBL().AddUpdateEntity("update", parametros);

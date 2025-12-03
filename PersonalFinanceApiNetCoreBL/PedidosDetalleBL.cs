@@ -40,6 +40,16 @@
         /// <summary>
         /// Método para obtener un solo registro.
         /// </summary>
+        /// <param name="id">Id del registro.</param>
+        /// <returns>Lista de entida.</returns>
+        public List<PedidoDetalle> GetOrderId(int id)
+        {
+            return this.mapper.GetId<PedidoDetalle>(id);
+        }
+
+        /// <summary>
+        /// Método para obtener un solo registro.
+        /// </summary>
         /// <param name="operacion">Operacion Create/Update.</param>
         /// <param name="parametros">Informacion a agregar/actualizar.</param>
         /// <returns>Lista de entida.</returns>
