@@ -1,24 +1,31 @@
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add CORS services
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-        name: "AllowSpecificOrigin",
+        name: "CorsPolicy",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000") // Specify the allowed origin
+            builder.WithOrigins("http://localhost", "http://localhost:3000", "https://localhost", "https://localhost:3000")
+                   .WithMethods("GET", "POST", "PUT")
                    .AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .AllowCredentials(); // If you need to send cookies or authentication headers
+                   .AllowCredentials(); // Allow sending credentials
         });
 });
 
@@ -33,12 +40,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowSpecificOrigin");
-
 app.UseHttpsRedirection();
+app.UseRouting();
 
+app.UseCors("CorsPolicy");
+
+app.UseStaticFiles();
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints => endpoints
+    .MapControllers()
+    );
+
+//app.MapControllers();
 
 app.Run();

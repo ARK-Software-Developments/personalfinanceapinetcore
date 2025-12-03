@@ -4,6 +4,7 @@
 #pragma warning disable SA1309
 #pragma warning disable SA1009
 
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using PersonalFinanceApiNetCoreBL;
     using PersonalFinanceApiNetCoreModel;
@@ -11,6 +12,7 @@
     /// <summary>
     /// MenuController.
     /// </summary>
+    [EnableCors("CorsPolicy")]
     [ApiController]
     [Route("api/v1/menus")]
     [UserSystemTextJsonAttribute]

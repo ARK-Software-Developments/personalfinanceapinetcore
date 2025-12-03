@@ -1,5 +1,10 @@
 ﻿namespace PersonalFinanceApiNetCore.Controllers
 {
+#pragma warning disable CS8625
+#pragma warning disable SA1309
+#pragma warning disable SA1009
+
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using PersonalFinanceApiNetCoreBL;
     using PersonalFinanceApiNetCoreModel;
@@ -7,27 +12,18 @@
     /// <summary>
     /// PedidosController.
     /// </summary>
+    [EnableCors("CorsPolicy")]
     [ApiController]
     [Route("api/v1/orders")]
     [UserSystemTextJsonAttribute]
-    public class PedidosController : ControllerBase
+    public class PedidosController(ILogger<PedidosController> logger) : ControllerBase
     {
-        private readonly ILogger<PedidosController> _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PedidosController"/> class.
-        /// </summary>
-        /// <param name="logger">ILogger.</param>
-        public PedidosController(ILogger<PedidosController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<PedidosController> _logger = logger;
 
         /// <summary>
         /// GetAll.
         /// </summary>
         /// <returns>GeneralResponse.</returns>
-        [Produces("application/json")]
         [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
@@ -53,7 +49,6 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>GeneralResponse.</returns>
-        [Produces("application/json")]
         [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
@@ -78,8 +73,7 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
-        [Produces("application/json")]
-        [HttpPut("create")]
+        [HttpPost("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
            long entidades = new PedidosBL().AddUpdateEntity("create", parametros);
@@ -103,8 +97,7 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
-        [Produces("application/json")]
-        [HttpPut("update")]
+        [HttpGet("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
             long entidades = new PedidosBL().AddUpdateEntity("update", parametros);
