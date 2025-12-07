@@ -8,7 +8,7 @@
     /// </summary>
     public class EstadosBL
     {
-        private PedidosDetalleDataMapper mapper;
+        private EstadosDataMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EstadosBL"/> class.
