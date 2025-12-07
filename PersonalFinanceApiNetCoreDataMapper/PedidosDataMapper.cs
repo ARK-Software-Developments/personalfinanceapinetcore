@@ -101,7 +101,7 @@
         /// <returns>Entidad respectiva.</returns>
         private Pedido MapperData(MySqlDataReader mySqlDataReader)
         {
-            Pedido entidad = new ()
+            Pedido entidad = new()
             {
                 Id = Convert.ToInt32(mySqlDataReader["id"]),
                 Numero = (int)mySqlDataReader["number"],
@@ -109,7 +109,10 @@
                 FechaPedido = (DateTime)mySqlDataReader["orderdate"],
                 FechaRecibido = mySqlDataReader["datereceived"] != DBNull.Value ? (DateTime)mySqlDataReader["datereceived"] : null,
                 TipoRecurso = mySqlDataReader["resourcetype"].ToString(),
-                Estado = mySqlDataReader["status"].ToString(),
+                Estado = new PedidoEstado()
+                {
+                    Nombre = mySqlDataReader["status"].ToString(),
+                },
             };
 
             return entidad;

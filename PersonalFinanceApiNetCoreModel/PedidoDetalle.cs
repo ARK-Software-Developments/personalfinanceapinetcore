@@ -76,6 +76,6 @@
         /// Gets or sets propiedad Estado.
         /// </summary>
         [JsonPropertyOrder(11)]
-        public string? Estado { get; set; }
+        public PedidoEstado? Estado { get; set; }
     }
 }

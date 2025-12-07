@@ -147,7 +147,10 @@
                 MontoUnitario = (decimal)mySqlDataReader["unitprice"],
                 SubTotal = (decimal)mySqlDataReader["subtotal"],
                 Para = mySqlDataReader["to"].ToString(),
-                Estado = mySqlDataReader["status"].ToString(),
+                Estado = new PedidoEstado()
+                {
+                    Nombre = mySqlDataReader["status"].ToString(),
+                },
             };
 
             return entidad;
