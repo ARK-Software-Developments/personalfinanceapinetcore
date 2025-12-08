@@ -101,7 +101,7 @@
         /// <returns>Entidad respectiva.</returns>
         private Pedido MapperData(MySqlDataReader mySqlDataReader)
         {
-            Pedido entidad = new()
+            Pedido entidad = new ()
             {
                 Id = Convert.ToInt32(mySqlDataReader["id"]),
                 Numero = (int)mySqlDataReader["number"],

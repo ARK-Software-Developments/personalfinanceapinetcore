@@ -44,7 +44,7 @@
         /// <returns>Lista de entida.</returns>
         public List<PedidoDetalle> GetOrderId(int id)
         {
-            return this.mapper.GetId<PedidoDetalle>(id);
+            return this.mapper.GetOrderId<PedidoDetalle>(id);
         }
 
         /// <summary>
