@@ -149,7 +149,10 @@
                 Para = mySqlDataReader["to"].ToString(),
                 Estado = new PedidoEstado()
                 {
-                    Nombre = mySqlDataReader["status"].ToString(),
+                    Id = (int)mySqlDataReader["statusid"],
+                    Nombre = mySqlDataReader["name"].ToString(),
+                    Orden = (int)mySqlDataReader["order"],
+                    Tabla = mySqlDataReader["entityname"].ToString(),
                 },
             };
 
