@@ -10,24 +10,25 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// PedidosController.
+    /// MenuController.
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/orders")]
+    [Route("api/v1/menus")]
     [UserSystemTextJsonAttribute]
-    public class PedidosController(ILogger<PedidosController> logger) : ControllerBase
+    public class MenuController(ILogger<MenuController> logger) : ControllerBase
     {
-        private readonly ILogger<PedidosController> _logger = logger;
+        private readonly ILogger<MenuController> _logger = logger;
 
         /// <summary>
         /// GetAll.
         /// </summary>
         /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
         [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
-            List<Pedido> entidades = new PedidosBL().GetAll();
+            List<Menu> entidades = new MenusBL().GetAll();
 
             var response = new GeneralResponse()
             {
@@ -49,16 +50,17 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
         [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
-            List<Pedido> entidades = new PedidosBL().GetId(id);
+            List<Menu> entidades = new MenusBL().GetId(id);
 
             var response = new GeneralResponse()
             {
                 Meta = new Meta()
                 {
-                    Metodo = "get",
+                    Metodo = "post",
                     Operacion = "get/{id}",
                     Recurso = string.Empty,
                 },
@@ -73,16 +75,17 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new PedidosBL().AddUpdateEntity("create", parametros);
+           long entidades = new MenusBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
                 Meta = new Meta()
                 {
-                    Metodo = "put",
+                    Metodo = "post",
                     Operacion = "create",
                     Recurso = string.Empty,
                 },
@@ -97,10 +100,11 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
-        [HttpPost("update")]
+        [Produces("application/json")]
+        [HttpPut("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new PedidosBL().AddUpdateEntity("update", parametros);
+            long entidades = new MenusBL().AddUpdateEntity("update", parametros);
 
             var response = new GeneralResponse()
             {

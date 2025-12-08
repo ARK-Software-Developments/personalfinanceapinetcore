@@ -4,16 +4,16 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// Clase PedidosDetalleBL.
+    /// Clase EstadosBL.
     /// </summary>
-    public class PedidosDetalleBL
+    public class EstadosBL
     {
-        private PedidosDetalleDataMapper mapper;
+        private EstadosDataMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PedidosDetalleBL"/> class.
+        /// Initializes a new instance of the <see cref="EstadosBL"/> class.
         /// </summary>
-        public PedidosDetalleBL()
+        public EstadosBL()
         {
             this.mapper = new ();
         }
@@ -22,9 +22,9 @@
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public List<PedidoDetalle> GetAll()
+        public List<PedidoEstado> GetAll()
         {
-            return this.mapper.GetAll<PedidoDetalle>();
+            return this.mapper.GetAll<PedidoEstado>();
         }
 
         /// <summary>
@@ -34,17 +34,7 @@
         /// <returns>Lista de entida.</returns>
         public List<PedidoDetalle> GetId(int id)
         {
-            return this.mapper.GetId<PedidoDetalle>(id);
-        }
-
-        /// <summary>
-        /// Método para obtener un solo registro.
-        /// </summary>
-        /// <param name="id">Id del registro.</param>
-        /// <returns>Lista de entida.</returns>
-        public List<PedidoDetalle> GetOrderId(int id)
-        {
-            return this.mapper.GetOrderId<PedidoDetalle>(id);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -55,14 +45,7 @@
         /// <returns>Lista de entida.</returns>
         public long AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-            if (operacion == "create")
-            {
-                return this.mapper.AddEntity(parametros);
-            }
-            else
-            {
-                return this.mapper.UpdateEntity(parametros);
-            }
+            throw new NotImplementedException();
         }
     }
 }

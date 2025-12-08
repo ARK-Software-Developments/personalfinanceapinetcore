@@ -10,24 +10,25 @@
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// PedidosController.
+    /// EstadosController.
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/orders")]
+    [Route("api/v1/status")]
     [UserSystemTextJsonAttribute]
-    public class PedidosController(ILogger<PedidosController> logger) : ControllerBase
+    public class EstadosController(ILogger<EstadosController> logger) : ControllerBase
     {
-        private readonly ILogger<PedidosController> _logger = logger;
+        private readonly ILogger<EstadosController> _logger = logger;
 
         /// <summary>
         /// GetAll.
         /// </summary>
         /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
         [HttpGet("getall")]
         public GeneralResponse GetAll()
         {
-            List<Pedido> entidades = new PedidosBL().GetAll();
+            List<PedidoEstado> entidades = new EstadosBL().GetAll();
 
             var response = new GeneralResponse()
             {
@@ -49,23 +50,11 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
         [HttpGet("get/{id}")]
         public GeneralResponse GetId(int id)
         {
-            List<Pedido> entidades = new PedidosBL().GetId(id);
-
-            var response = new GeneralResponse()
-            {
-                Meta = new Meta()
-                {
-                    Metodo = "get",
-                    Operacion = "get/{id}",
-                    Recurso = string.Empty,
-                },
-                Data = entidades,
-            };
-
-            return response;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -73,23 +62,11 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new PedidosBL().AddUpdateEntity("create", parametros);
-
-           var response = new GeneralResponse()
-            {
-                Meta = new Meta()
-                {
-                    Metodo = "put",
-                    Operacion = "create",
-                    Recurso = string.Empty,
-                },
-                Data = entidades,
-            };
-
-           return response;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -97,23 +74,11 @@
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
-        [HttpPost("update")]
+        [Produces("application/json")]
+        [HttpPut("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new PedidosBL().AddUpdateEntity("update", parametros);
-
-            var response = new GeneralResponse()
-            {
-                Meta = new Meta()
-                {
-                    Metodo = "post",
-                    Operacion = "update",
-                    Recurso = string.Empty,
-                },
-                Data = entidades,
-            };
-
-            return response;
+            throw new NotImplementedException();
         }
     }
 }

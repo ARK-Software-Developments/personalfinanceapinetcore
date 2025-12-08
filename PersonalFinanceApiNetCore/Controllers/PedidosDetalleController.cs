@@ -63,8 +63,33 @@
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "get",
                     Operacion = "get/{id}",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// GetId.
+        /// </summary>
+        /// <param name="id">Id del registro.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpGet("getorderid/{id}")]
+        public GeneralResponse GetOrderId(int id)
+        {
+            List<PedidoDetalle> entidades = new PedidosDetalleBL().GetOrderId(id);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "get",
+                    Operacion = "getbyorder/{id}",
                     Recurso = string.Empty,
                 },
                 Data = entidades,
@@ -88,7 +113,7 @@
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "put",
                     Operacion = "create",
                     Recurso = string.Empty,
                 },
@@ -104,7 +129,7 @@
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpPut("update")]
+        [HttpPost("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
             long entidades = new PedidosDetalleBL().AddUpdateEntity("update", parametros);

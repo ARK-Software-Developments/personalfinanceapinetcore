@@ -19,6 +19,6 @@
         public string Nombre { get; set; }
 
         // <inheritdoc/>
-        public object Valor { get; set; }
+        public object? Valor { get; set; }
     }
 }

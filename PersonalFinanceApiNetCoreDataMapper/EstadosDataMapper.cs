@@ -5,14 +5,14 @@
     using PersonalFinanceApiNetCoreModel.Interfaces;
 
     /// <summary>
-    /// Clase PedidosDataMapper.
+    /// Clase EstadosDataMapper.
     /// </summary>
-    public class PedidosDataMapper : IDataMapper
+    public class EstadosDataMapper : IDataMapper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PedidosDataMapper"/> class.
+        /// Initializes a new instance of the <see cref="EstadosDataMapper"/> class.
         /// </summary>
-        public PedidosDataMapper()
+        public EstadosDataMapper()
         {
         }
 
@@ -29,18 +29,18 @@
         /// <returns>Lista de categorias.</returns>
         public List<T> GetAll<T>()
         {
-            var lstEntidades = new List<Pedido>();
+            var lstEntidades = new List<PedidoEstado>();
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("spOrdersGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spStatusGetAll");
 
             while (mySqlDataReader.Read())
             {
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
-            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Pedido>));
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<PedidoEstado>));
         }
 
         /// <summary>
@@ -51,27 +51,7 @@
         /// <returns>Lista de categorias.</returns>
         public List<T> GetId<T>(int id)
         {
-            var lstEntidades = new List<Pedido>();
-
-            var mysql = new MySQLConnectionDM();
-
-            List<Parametro> parametros =
-            [
-                new ()
-                {
-                    Nombre = "pid",
-                    Valor = id,
-                },
-            ];
-
-            var mySqlDataReader = mysql.GetDataReader("spOrdersGetId", parametros);
-
-            while (mySqlDataReader.Read())
-            {
-                lstEntidades.Add(this.MapperData(mySqlDataReader));
-            }
-
-            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Pedido>));
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -81,7 +61,7 @@
         /// <returns>Lista de categorias.</returns>
         public long AddEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Add("spOrdersAdd", parametros);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -91,7 +71,7 @@
         /// <returns>Lista de categorias.</returns>
         public long UpdateEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Update("spOrdersUpdate", parametros);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -99,23 +79,14 @@
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
         /// <returns>Entidad respectiva.</returns>
-        private Pedido MapperData(MySqlDataReader mySqlDataReader)
+        private PedidoEstado MapperData(MySqlDataReader mySqlDataReader)
         {
-            Pedido entidad = new ()
+            PedidoEstado entidad = new ()
             {
                 Id = Convert.ToInt32(mySqlDataReader["id"]),
-                Numero = (int)mySqlDataReader["number"],
-                MontoTotal = (decimal)mySqlDataReader["totalamount"],
-                FechaPedido = (DateTime)mySqlDataReader["orderdate"],
-                FechaRecibido = mySqlDataReader["datereceived"] != DBNull.Value ? (DateTime)mySqlDataReader["datereceived"] : null,
-                TipoRecurso = mySqlDataReader["resourcetype"].ToString(),
-                Estado = new PedidoEstado()
-                {
-                    Id = (int)mySqlDataReader["statusid"],
-                    Nombre = mySqlDataReader["name"].ToString(),
-                    Orden = (int)mySqlDataReader["order"],
-                    Tabla = mySqlDataReader["entityname"].ToString(),
-                },
+                Orden = (int)mySqlDataReader["order"],
+                Nombre = mySqlDataReader["name"].ToString(),
+                Tabla = mySqlDataReader["entityname"].ToString(),
             };
 
             return entidad;

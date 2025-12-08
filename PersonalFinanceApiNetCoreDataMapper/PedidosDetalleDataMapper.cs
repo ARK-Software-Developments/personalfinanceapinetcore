@@ -78,6 +78,37 @@
         }
 
         /// <summary>
+        /// Metodo para obtener un registro.
+        /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
+        /// <param name="id">Id del registro.</param>
+        /// <returns>Lista de categorias.</returns>
+        public List<T> GetOrderId<T>(int id)
+        {
+            var lstEntidades = new List<PedidoDetalle>();
+
+            var mysql = new MySQLConnectionDM();
+
+            List<Parametro> parametros =
+            [
+                new ()
+                {
+                    Nombre = "pOrderId",
+                    Valor = id,
+                },
+            ];
+
+            var mySqlDataReader = mysql.GetDataReader("spOrderDetailsGetOrderId", parametros);
+
+            while (mySqlDataReader.Read())
+            {
+                lstEntidades.Add(this.MapperData(mySqlDataReader));
+            }
+
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<PedidoDetalle>));
+        }
+
+        /// <summary>
         /// Metodo para agregar un registro nuevo.
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
@@ -116,7 +147,13 @@
                 MontoUnitario = (decimal)mySqlDataReader["unitprice"],
                 SubTotal = (decimal)mySqlDataReader["subtotal"],
                 Para = mySqlDataReader["to"].ToString(),
-                Estado = mySqlDataReader["status"].ToString(),
+                Estado = new PedidoEstado()
+                {
+                    Id = (int)mySqlDataReader["statusid"],
+                    Nombre = mySqlDataReader["name"].ToString(),
+                    Orden = (int)mySqlDataReader["order"],
+                    Tabla = mySqlDataReader["entityname"].ToString(),
+                },
             };
 
             return entidad;

@@ -1,19 +1,21 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
+#pragma warning disable SA1010
+
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
-    /// Clase PedidosDetalleBL.
+    /// Clase MenuBL.
     /// </summary>
-    public class PedidosDetalleBL
+    public class MenusBL
     {
-        private PedidosDetalleDataMapper mapper;
+        private MenusDataMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PedidosDetalleBL"/> class.
+        /// Initializes a new instance of the <see cref="MenusBL"/> class.
         /// </summary>
-        public PedidosDetalleBL()
+        public MenusBL()
         {
             this.mapper = new ();
         }
@@ -22,9 +24,35 @@
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public List<PedidoDetalle> GetAll()
+        public List<Menu> GetAll()
         {
-            return this.mapper.GetAll<PedidoDetalle>();
+            List<Menu> lstMenues = [];
+
+            var menuPricipal = this.mapper.GetAll<Menu>();
+
+            lstMenues = [.. menuPricipal];
+
+            for (int i = 0; i < lstMenues.Count; i++)
+            {
+                var subMenues = this.mapper.GetAll<Menu>(lstMenues[i].Id);
+
+                lstMenues[i].SubMenu = [];
+
+                foreach (var subMenu in subMenues)
+                {
+                    lstMenues[i].SubMenu.Add(
+                        new SubMenu()
+                        {
+                            Id = subMenu.Id,
+                            Accion = subMenu.Accion,
+                            Nivel = subMenu.Nivel,
+                            Nombre = subMenu.Nombre,
+                            Titulo = subMenu.Titulo,
+                        });
+                }
+            }
+
+            return lstMenues;
         }
 
         /// <summary>
@@ -32,19 +60,9 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de entida.</returns>
-        public List<PedidoDetalle> GetId(int id)
+        public List<Menu> GetId(int id)
         {
-            return this.mapper.GetId<PedidoDetalle>(id);
-        }
-
-        /// <summary>
-        /// Método para obtener un solo registro.
-        /// </summary>
-        /// <param name="id">Id del registro.</param>
-        /// <returns>Lista de entida.</returns>
-        public List<PedidoDetalle> GetOrderId(int id)
-        {
-            return this.mapper.GetOrderId<PedidoDetalle>(id);
+            return this.mapper.GetId<Menu>(id);
         }
 
         /// <summary>
