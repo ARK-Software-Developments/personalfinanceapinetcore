@@ -43,15 +43,19 @@
         /// <param name="operacion">Operacion Create/Update.</param>
         /// <param name="parametros">Informacion a agregar/actualizar.</param>
         /// <returns>Lista de Entidad.</returns>
-        public long AddUpdateEntity(string operacion, List<Parametro> parametros)
+        public List<object> AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
             if (operacion == "create")
             {
-                return this.mapper.AddEntity(parametros);
+                return [
+                    this.mapper.AddEntity(parametros),
+                    ];
             }
             else
             {
-                return this.mapper.UpdateEntity(parametros);
+                return [
+                    this.mapper.UpdateEntity(parametros),
+                    ];
             }
         }
     }
