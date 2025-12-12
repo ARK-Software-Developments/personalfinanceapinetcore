@@ -77,13 +77,13 @@
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new TarjetasBL().AddUpdateEntity("create", parametros);
+            var entidades = new TarjetasBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "put",
                     Operacion = "create",
                     Recurso = string.Empty,
                 },
@@ -99,16 +99,16 @@
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpPut("update")]
+        [HttpPost("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new TarjetasBL().AddUpdateEntity("update", parametros);
+            var entidades = new TarjetasBL().AddUpdateEntity("update", parametros);
 
             var response = new GeneralResponse()
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "post", 
                     Operacion = "update",
                     Recurso = string.Empty,
                 },
