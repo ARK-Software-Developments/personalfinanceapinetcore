@@ -62,7 +62,7 @@
             [
                 new ()
                 {
-                    Nombre = "pid",
+                    Nombre = "pId",
                     Valor = id,
                 },
             ];
@@ -113,6 +113,20 @@
                 FechaTransaccion = (DateTime)mySqlDataReader["transactiondate"],
                 Resumen = mySqlDataReader["summary"].ToString(),
                 Observaciones = mySqlDataReader["observations"].ToString(),
+                Tarjeta = new Tarjeta
+                {
+                    Id = Convert.ToInt32(mySqlDataReader["cardsid"]),
+                    Nombre = mySqlDataReader["cardname"].ToString(),
+                    FechaCierre = (DateTime)mySqlDataReader["closingdate"],
+                    FechaVencimiento = (DateTime)mySqlDataReader["expirationdate"],
+                    Entidad = new ()
+                    {
+                        Id = Convert.ToInt32(mySqlDataReader["entityid"]),
+                        Nombre = mySqlDataReader["entity"].ToString(),
+                        Tipo = mySqlDataReader["entitytype"].ToString(),
+                    },
+                    Activo = (bool)mySqlDataReader["active"],
+                },
             };
 
             return entidad;

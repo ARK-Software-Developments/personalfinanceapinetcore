@@ -52,5 +52,11 @@
         [JsonPropertyOrder(7)]
         public string Observaciones { get; set; }
 
+        /// <summary>
+        /// Gets or sets propiedad Tarjeta.
+        /// </summary>
+        [JsonPropertyOrder(8)]
+        public Tarjeta Tarjeta { get; set; }
+
     }
 }
