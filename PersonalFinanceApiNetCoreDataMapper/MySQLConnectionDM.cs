@@ -70,9 +70,7 @@
                 }
             }
 
-            cmd.ExecuteNonQuery();
-
-            return cmd.LastInsertedId;
+            return Convert.ToInt64(cmd.ExecuteScalar());
         }
 
         // <inheritdoc/>
