@@ -1,5 +1,6 @@
 ﻿namespace PersonalFinanceApiNetCoreModel
 {
+    using System.ComponentModel.DataAnnotations;
 #pragma warning disable CS8618
 
     using System.Text.Json.Serialization;
@@ -58,5 +59,10 @@
         [JsonPropertyOrder(8)]
         public Tarjeta Tarjeta { get; set; }
 
+        /// <summary>
+        /// Gets or sets propiedad Id.
+        /// </summary>
+        [JsonPropertyOrder(9)]
+        public int TarjetaConsumoId { get; set; }
     }
 }
