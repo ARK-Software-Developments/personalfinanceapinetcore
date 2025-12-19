@@ -78,7 +78,7 @@
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new TarjetasConsumosBL().AddUpdateEntity("create", parametros);
+           var entidades = new TarjetasConsumosBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
@@ -100,10 +100,35 @@
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpPut("update")]
+        [HttpPost("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new TarjetasConsumosBL().AddUpdateEntity("update", parametros);
+            var entidades = new TarjetasConsumosBL().AddUpdateEntity("update", parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "update",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPost("updatetransid")]
+        public GeneralResponse UpdateTrans([FromBody] List<Parametro> parametros)
+        {
+            var entidades = new TarjetasConsumosBL().AddUpdateEntity("updatetransid", parametros);
 
             var response = new GeneralResponse()
             {

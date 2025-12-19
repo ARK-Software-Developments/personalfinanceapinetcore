@@ -114,6 +114,16 @@
         }
 
         /// <summary>
+        /// Metodo para actualizar un registro.
+        /// </summary>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de categorias.</returns>
+        public long UpdateTransId(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Update("spCreditCardSpendingtUpdateTransId", parametros);
+        }
+
+        /// <summary>
         /// Mapeo de registro.
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
@@ -137,18 +147,24 @@
                 Diciembre = (decimal)mySqlDataReader["december"],
                 Ano = (int)mySqlDataReader["year"],
                 Detalle = mySqlDataReader["details"].ToString(),
-                Cuotas = (int)mySqlDataReader["numberinstallments"],
+                Cuotas = mySqlDataReader["numberinstallments"] == DBNull.Value ? 0 : (int)mySqlDataReader["numberinstallments"],
                 Verificado = (bool)mySqlDataReader["verified"],
                 Pagado = (bool)mySqlDataReader["paid"],
-                Tarjeta = new Tarjeta()
+                Tarjeta = mySqlDataReader["cardsid"] == DBNull.Value ? null :
+                new Tarjeta()
                 {
                     Id = (int)mySqlDataReader["cardsid"],
                     Nombre = mySqlDataReader["cardname"].ToString(),
                 },
-                Transaccion = new Transaccion()
+                Transaccion = mySqlDataReader["transactioncodeid"] == DBNull.Value ? null :
+                new Transaccion()
                 {
                     Id = (int)mySqlDataReader["transactioncodeid"],
                     EntidadAsociada = mySqlDataReader["associatedentity"].ToString(),
+                    Resumen = mySqlDataReader["summary"].ToString(),
+                    OrdenCompra = mySqlDataReader["purchaseorder"].ToString(),
+                    CodigoTransaccion = mySqlDataReader["transactioncode"].ToString(),
+                    Observaciones = mySqlDataReader["observations"].ToString(),
                 },
                 EntidadCompra = mySqlDataReader["purchasingentity"].ToString(),
             };
