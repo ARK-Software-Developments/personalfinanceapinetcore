@@ -58,7 +58,7 @@
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "get",
                     Operacion = "get/{id}",
                     Recurso = string.Empty,
                 },
@@ -83,7 +83,7 @@
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
+                    Metodo = "put",
                     Operacion = "create",
                     Recurso = string.Empty,
                 },
@@ -110,6 +110,31 @@
                 {
                     Metodo = "post",
                     Operacion = "update",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPost("updatecreditcardspending")]
+        public GeneralResponse UpdateTrans([FromBody] List<Parametro> parametros)
+        {
+            var entidades = new TransaccionesBL().AddUpdateEntity("updatecreditcardspending", parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "updatecreditcardspending",
                     Recurso = string.Empty,
                 },
                 Data = entidades,

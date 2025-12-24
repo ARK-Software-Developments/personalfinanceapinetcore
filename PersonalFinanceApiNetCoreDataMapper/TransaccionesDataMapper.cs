@@ -43,6 +43,8 @@
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
+            mysql.Close();
+
             return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Transaccion>));
         }
 
@@ -73,6 +75,8 @@
             {
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
+
+            mysql.Close();
 
             return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Transaccion>));
         }

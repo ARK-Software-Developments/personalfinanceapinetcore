@@ -76,7 +76,7 @@
         [HttpPut("create")]
         public GeneralResponse AddEntity([FromBody] List<Parametro> parametros)
         {
-           long entidades = new PedidosBL().AddUpdateEntity("create", parametros);
+           var entidades = new PedidosBL().AddUpdateEntity("create", parametros);
 
            var response = new GeneralResponse()
             {
@@ -100,7 +100,7 @@
         [HttpPost("update")]
         public GeneralResponse UpdateEntity([FromBody] List<Parametro> parametros)
         {
-            long entidades = new PedidosBL().AddUpdateEntity("update", parametros);
+            var entidades = new PedidosBL().AddUpdateEntity("update", parametros);
 
             var response = new GeneralResponse()
             {

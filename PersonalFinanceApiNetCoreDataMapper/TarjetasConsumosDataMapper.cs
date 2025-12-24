@@ -59,6 +59,8 @@
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
+            mysql.Close();
+
             return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<TarjetaConsumo>));
         }
 
@@ -89,6 +91,8 @@
             {
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
+
+            mysql.Close();
 
             return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<TarjetaConsumo>));
         }
@@ -155,16 +159,6 @@
                 {
                     Id = (int)mySqlDataReader["cardsid"],
                     Nombre = mySqlDataReader["cardname"].ToString(),
-                },
-                Transaccion = mySqlDataReader["transactioncodeid"] == DBNull.Value ? null :
-                new Transaccion()
-                {
-                    Id = (int)mySqlDataReader["transactioncodeid"],
-                    EntidadAsociada = mySqlDataReader["associatedentity"].ToString(),
-                    Resumen = mySqlDataReader["summary"].ToString(),
-                    OrdenCompra = mySqlDataReader["purchaseorder"].ToString(),
-                    CodigoTransaccion = mySqlDataReader["transactioncode"].ToString(),
-                    Observaciones = mySqlDataReader["observations"].ToString(),
                 },
                 EntidadCompra = mySqlDataReader["purchasingentity"].ToString(),
             };

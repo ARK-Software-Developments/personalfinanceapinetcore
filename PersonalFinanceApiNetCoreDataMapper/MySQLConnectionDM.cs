@@ -4,8 +4,10 @@
 #pragma warning disable SA1600
 #pragma warning disable SA1201
 #pragma warning disable SA1202
+#pragma warning disable CA1416 // Validar la compatibilidad de la plataforma
 
     using System.Data;
+    using System.Diagnostics;
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
 
@@ -15,7 +17,7 @@
     public class MySQLConnectionDM
     {
         // <inheritdoc/>
-        public const string ConnectionString = "Server=localhost;Database=personalfinance;Uid=desarrollo;Pwd=PersonalFinance2025";
+        public const string ConnectionString = "Server=localhost;Database=personalfinance;Uid=desarrollo;Pwd=PersonalFinance2025;Max Pool Size=250";
 
         // <inheritdoc/>
         public MySqlConnection Connection { get; set; }
@@ -35,61 +37,104 @@
             this.Connection.Open();
         }
 
+        public void Close()
+        {
+            this.Connection.Close();
+        }
+
         // <inheritdoc/>
         public MySqlDataReader GetDataReader(string spCommandName, List<Parametro>? parametros = null)
         {
-            MySqlCommand cmd = new (spCommandName, this.Connection)
+            MySqlDataReader? mySqlDataReader = null;
+            try
             {
-                CommandType = CommandType.StoredProcedure,
-            };
-
-            if (parametros != null)
-            {
-                foreach (var parametro in parametros)
+                MySqlCommand cmd = new (spCommandName, this.Connection)
                 {
-                    cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    CommandType = CommandType.StoredProcedure,
+                };
+
+                if (parametros != null)
+                {
+                    foreach (var parametro in parametros)
+                    {
+                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    }
                 }
+
+                mySqlDataReader = cmd.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
             }
 
-            return cmd.ExecuteReader();
+            return mySqlDataReader;
         }
 
         // <inheritdoc/>
         public long Add(string spCommandName, List<Parametro>? parametros)
         {
-            MySqlCommand cmd = new (spCommandName, this.Connection)
+            long id = 0;
+            try
             {
-                CommandType = CommandType.StoredProcedure,
-            };
-
-            if (parametros != null)
-            {
-                foreach (var parametro in parametros)
+                MySqlCommand cmd = new (spCommandName, this.Connection)
                 {
-                    cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    CommandType = CommandType.StoredProcedure,
+                };
+
+                if (parametros != null)
+                {
+                    foreach (var parametro in parametros)
+                    {
+                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    }
                 }
+
+                id = Convert.ToInt64(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+            }
+            finally
+            {
+                this.Connection.Close();
             }
 
-            return Convert.ToInt64(cmd.ExecuteScalar());
+            return id;
         }
 
         // <inheritdoc/>
         public long Update(string spCommandName, List<Parametro>? parametros)
         {
-            MySqlCommand cmd = new (spCommandName, this.Connection)
+            long id = 0;
+            try
             {
-                CommandType = CommandType.StoredProcedure,
-            };
-
-            if (parametros != null)
-            {
-                foreach (var parametro in parametros)
+                MySqlCommand cmd = new (spCommandName, this.Connection)
                 {
-                    cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    CommandType = CommandType.StoredProcedure,
+                };
+
+                if (parametros != null)
+                {
+                    foreach (var parametro in parametros)
+                    {
+                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    }
                 }
+
+                id = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+            }
+            finally
+            {
+                this.Connection.Close();
             }
 
-            return cmd.ExecuteNonQuery();
+            return id;
         }
     }
 }
