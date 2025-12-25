@@ -43,6 +43,8 @@
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
+            mysql.Close();
+
             return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Transaccion>));
         }
 
@@ -74,6 +76,8 @@
                 lstEntidades.Add(this.MapperData(mySqlDataReader));
             }
 
+            mysql.Close();
+
             return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Transaccion>));
         }
 
@@ -98,6 +102,16 @@
         }
 
         /// <summary>
+        /// Metodo para actualizar un registro.
+        /// </summary>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de categorias.</returns>
+        public long UpdateEntityCreditCardsPending(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Update("spTransactionsUpdateCreditCardsPendingId", parametros);
+        }
+
+        /// <summary>
         /// Mapeo de registro.
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
@@ -113,6 +127,7 @@
                 FechaTransaccion = (DateTime)mySqlDataReader["transactiondate"],
                 Resumen = mySqlDataReader["summary"].ToString(),
                 Observaciones = mySqlDataReader["observations"].ToString(),
+                TarjetaConsumoId = mySqlDataReader["creditcardspendingid"] != DBNull.Value ? Convert.ToInt32(mySqlDataReader["creditcardspendingid"]) : 0,
                 Tarjeta = new Tarjeta
                 {
                     Id = Convert.ToInt32(mySqlDataReader["cardsid"]),

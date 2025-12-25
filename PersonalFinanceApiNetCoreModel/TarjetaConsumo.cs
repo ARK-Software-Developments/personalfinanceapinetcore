@@ -30,33 +30,33 @@
         public string EntidadCompra { get; set; }
 
         /// <summary>
-        /// Gets or sets propiedad Transaccion.
-        /// </summary>
-        [JsonPropertyOrder(17)]
-        public Transaccion Transaccion { get; set; }
-
-        /// <summary>
         /// Gets or sets propiedad Detalle.
         /// </summary>
-        [JsonPropertyOrder(18)]
+        [JsonPropertyOrder(17)]
         public string Detalle { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Cuotas.
         /// </summary>
-        [JsonPropertyOrder(19)]
+        [JsonPropertyOrder(18)]
         public int Cuotas { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Verificado.
         /// </summary>
-        [JsonPropertyOrder(20)]
+        [JsonPropertyOrder(19)]
         public bool Verificado { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Pagado.
         /// </summary>
-        [JsonPropertyOrder(21)]
+        [JsonPropertyOrder(20)]
         public bool Pagado { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad Cuotas.
+        /// </summary>
+        [JsonPropertyOrder(21)]
+        public int TransaccionesAsociadas { get; set; }
     }
 }

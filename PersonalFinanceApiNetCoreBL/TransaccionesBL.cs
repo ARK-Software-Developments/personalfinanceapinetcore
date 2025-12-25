@@ -1,5 +1,8 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
+#pragma warning disable IDE0079 // Quitar supresión innecesaria
+#pragma warning disable SA1010 // Opening square brackets should be spaced correctly
+
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
 
@@ -45,18 +48,19 @@
         /// <returns>Lista de entida.</returns>
         public List<object> AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-            if (operacion == "create")
+            return operacion switch
             {
-                return [
+                "create" => [
                     this.mapper.AddEntity(parametros),
-                    ];
-            }
-            else
-            {
-                return [
+                    ],
+                "update" => [
                     this.mapper.UpdateEntity(parametros),
-                    ];
-            }
+                    ],
+                "updatecreditcardspending" => [
+                    this.mapper.UpdateEntityCreditCardsPending(parametros),
+                    ],
+                _ => [],
+            };
         }
     }
 }
