@@ -118,30 +118,5 @@
 
             return response;
         }
-
-        /// <summary>
-        /// AddEntity.
-        /// </summary>
-        /// <param name="parametros">Parametro lista.</param>
-        /// <returns>GeneralResponse.</returns>
-        [Produces("application/json")]
-        [HttpPost("updatetransid")]
-        public GeneralResponse UpdateTrans([FromBody] List<Parametro> parametros)
-        {
-            var entidades = new TarjetasConsumosBL().AddUpdateEntity("updatetransid", parametros);
-
-            var response = new GeneralResponse()
-            {
-                Meta = new Meta()
-                {
-                    Metodo = "post",
-                    Operacion = "update",
-                    Recurso = string.Empty,
-                },
-                Data = entidades,
-            };
-
-            return response;
-        }
     }
 }

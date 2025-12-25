@@ -161,6 +161,7 @@
                     Nombre = mySqlDataReader["cardname"].ToString(),
                 },
                 EntidadCompra = mySqlDataReader["purchasingentity"].ToString(),
+                TransaccionesAsociadas = Convert.ToInt32(mySqlDataReader["transaccionesasociada"]),
             };
 
             return entidad;

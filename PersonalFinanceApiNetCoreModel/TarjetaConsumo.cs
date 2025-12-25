@@ -52,5 +52,11 @@
         /// </summary>
         [JsonPropertyOrder(20)]
         public bool Pagado { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad Cuotas.
+        /// </summary>
+        [JsonPropertyOrder(21)]
+        public int TransaccionesAsociadas { get; set; }
     }
 }
