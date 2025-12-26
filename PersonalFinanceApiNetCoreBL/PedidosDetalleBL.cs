@@ -55,6 +55,8 @@
         /// <returns>Lista de entida.</returns>
         public List<object> AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
+            this.mapper.UpdateTotalAmount(parametros.FindAll(p => p.Nombre == "pOrderId"));
+
             return operacion switch
             {
                 "create" => [
