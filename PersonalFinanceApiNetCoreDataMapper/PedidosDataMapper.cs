@@ -111,6 +111,7 @@
                 Numero = (int)mySqlDataReader["number"],
                 MontoTotal = (decimal)mySqlDataReader["totalamount"],
                 FechaPedido = (DateTime)mySqlDataReader["orderdate"],
+                FechaPagado = mySqlDataReader["paymentdate"] != DBNull.Value ? (DateTime)mySqlDataReader["paymentdate"] : null,
                 FechaRecibido = mySqlDataReader["datereceived"] != DBNull.Value ? (DateTime)mySqlDataReader["datereceived"] : null,
                 TipoRecurso = mySqlDataReader["resourcetype"].ToString(),
                 Estado = new PedidoEstado()
