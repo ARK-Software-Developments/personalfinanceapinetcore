@@ -134,6 +134,11 @@
             return new MySQLConnectionDM().Update("spOrderDetailsUpdate", parametros);
         }
 
+        public long UpdateTotalAmount(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Update("spOrdersUpdateTotalAmount", parametros);
+        }
+
         /// <summary>
         /// Mapeo de registro.
         /// </summary>
