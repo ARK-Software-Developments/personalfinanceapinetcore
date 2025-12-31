@@ -1,18 +1,21 @@
 ﻿namespace PersonalFinanceApiNetCoreDataMapper
 {
+#pragma warning disable CS8601 // Posible asignación de referencia nula
+#pragma warning disable CA1822 // Marcar miembros como static
+
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
     using PersonalFinanceApiNetCoreModel.Interfaces;
 
     /// <summary>
-    /// Clase PedidosDataMapper.
+    /// Clase PagosDataMapper.
     /// </summary>
-    public class PedidosDataMapper : IDataMapper
+    public class PagosDataMapper : IDataMapper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PedidosDataMapper"/> class.
+        /// Initializes a new instance of the <see cref="PagosDataMapper"/> class.
         /// </summary>
-        public PedidosDataMapper()
+        public PagosDataMapper()
         {
         }
 
@@ -29,11 +32,11 @@
         /// <returns>Lista de categorias.</returns>
         public List<T> GetAll<T>()
         {
-            var lstEntidades = new List<Pedido>();
+            var lstEntidades = new List<Pago>();
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("spOrdersGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spPaymentsGetAll");
 
             while (mySqlDataReader.Read())
             {
@@ -42,7 +45,7 @@
 
             mysql.Close();
 
-            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Pedido>));
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Pago>));
         }
 
         /// <summary>
@@ -53,7 +56,7 @@
         /// <returns>Lista de categorias.</returns>
         public List<T> GetId<T>(int id)
         {
-            var lstEntidades = new List<Pedido>();
+            var lstEntidades = new List<Pago>();
 
             var mysql = new MySQLConnectionDM();
 
@@ -66,7 +69,7 @@
                 },
             ];
 
-            var mySqlDataReader = mysql.GetDataReader("spOrdersGetId", parametros);
+            var mySqlDataReader = mysql.GetDataReader("spPaymentsGetId", parametros);
 
             while (mySqlDataReader.Read())
             {
@@ -75,7 +78,7 @@
 
             mysql.Close();
 
-            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Pedido>));
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<Pago>));
         }
 
         /// <summary>
@@ -85,7 +88,7 @@
         /// <returns>Lista de categorias.</returns>
         public long AddEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Add("spOrdersAdd", parametros);
+            return new MySQLConnectionDM().Add("spPaymentsAdd", parametros);
         }
 
         /// <summary>
@@ -95,7 +98,17 @@
         /// <returns>Lista de categorias.</returns>
         public long UpdateEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Update("spOrdersUpdate", parametros);
+            return new MySQLConnectionDM().Update("spPaymentsUpdate", parametros);
+        }
+
+        /// <summary>
+        /// Metodo para actualizar un registro.
+        /// </summary>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de categorias.</returns>
+        public long RegisterPayment(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Update("spBillsUpdateByPayment", parametros);
         }
 
         /// <summary>
@@ -103,23 +116,29 @@
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
         /// <returns>Entidad respectiva.</returns>
-        private Pedido MapperData(MySqlDataReader mySqlDataReader)
+        private Pago MapperData(MySqlDataReader mySqlDataReader)
         {
-            Pedido entidad = new ()
+            Pago entidad = new ()
             {
                 Id = Convert.ToInt32(mySqlDataReader["id"]),
-                Numero = (int)mySqlDataReader["number"],
-                MontoTotal = (decimal)mySqlDataReader["totalamount"],
-                FechaPedido = (DateTime)mySqlDataReader["orderdate"],
-                FechaPagado = mySqlDataReader["paymentdate"] != DBNull.Value ? (DateTime)mySqlDataReader["paymentdate"] : null,
-                FechaRecibido = mySqlDataReader["datereceived"] != DBNull.Value ? (DateTime)mySqlDataReader["datereceived"] : null,
-                TipoRecurso = mySqlDataReader["resourcetype"].ToString(),
-                Estado = new PedidoEstado()
+                FechaPago = mySqlDataReader["dateofpayment"] != DBNull.Value ? (DateTime)mySqlDataReader["dateofpayment"] : null,
+                FechaRegistro = mySqlDataReader["registrationdate"] != DBNull.Value ? (DateTime)mySqlDataReader["registrationdate"] : null,
+                CodigoRegistro = mySqlDataReader["registrationcode"].ToString(),
+                MontoPagado = (decimal)mySqlDataReader["amountpaid"],
+                MontoPresupuestado = (decimal)mySqlDataReader["budgetedamount"],
+                RecursoDelPago = mySqlDataReader["paymentresourceid"] == DBNull.Value ? null :
+                new Entidad()
                 {
-                    Id = (int)mySqlDataReader["statusid"],
-                    Nombre = mySqlDataReader["name"].ToString(),
-                    Orden = (int)mySqlDataReader["order"],
-                    Tabla = mySqlDataReader["entityname"].ToString(),
+                    Id = (int)mySqlDataReader["paymentresourceid"],
+                    Nombre = mySqlDataReader["entity"].ToString(),
+                    Tipo = mySqlDataReader["entitytype"].ToString(),
+                },
+                TipoDePago = mySqlDataReader["paymenttype"].ToString(),
+                TipoDeGasto = mySqlDataReader["reasonforpayment"] == DBNull.Value ? null :
+                new TipoGasto()
+                {
+                    Id = (int)mySqlDataReader["reasonforpayment"],
+                    Tipo = mySqlDataReader["type"].ToString(),
                 },
             };
 

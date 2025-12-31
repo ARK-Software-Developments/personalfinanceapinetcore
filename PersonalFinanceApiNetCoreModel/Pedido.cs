@@ -29,27 +29,33 @@
         public DateTime FechaPedido { get; set; }
 
         /// <summary>
-        /// Gets or sets propiedad FechaRecibido.
+        /// Gets or sets propiedad FechaPagado.
         /// </summary>
         [JsonPropertyOrder(4)]
+        public DateTime? FechaPagado { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad FechaRecibido.
+        /// </summary>
+        [JsonPropertyOrder(5)]
         public DateTime? FechaRecibido { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad MontoTotal.
         /// </summary>
-        [JsonPropertyOrder(5)]
+        [JsonPropertyOrder(6)]
         public decimal MontoTotal { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad TipoRecurso.
         /// </summary>
-        [JsonPropertyOrder(6)]
+        [JsonPropertyOrder(7)]
         public string? TipoRecurso { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Estado.
         /// </summary>
-        [JsonPropertyOrder(7)]
+        [JsonPropertyOrder(8)]
         public PedidoEstado? Estado { get; set; }
     }
 }
