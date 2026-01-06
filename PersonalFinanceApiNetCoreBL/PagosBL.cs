@@ -60,8 +60,6 @@
                     break;
             }
 
-            this.RecordPayment(parametros);
-
             return [ result ];
         }
 
