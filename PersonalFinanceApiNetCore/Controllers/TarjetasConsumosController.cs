@@ -70,6 +70,32 @@
         }
 
         /// <summary>
+        /// GetId.
+        /// </summary>
+        /// <param name="id">Id del registro.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPost("resumenbycard/")]
+        public GeneralResponse ResumenByCard([FromBody] List<Parametro> parametros)
+        {
+            List<TarjetaConsumoResumen> lstTarjetaConsumoResumen = new TarjetasConsumosBL().GetResumenByCardId(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "resumenbycard/",
+                    Recurso = string.Empty,
+                },
+                Data = lstTarjetaConsumoResumen,
+            };
+
+            return response;
+        }
+
+
+        /// <summary>
         /// AddEntity.
         /// </summary>
         /// <param name="parametros">Parametro lista.</param>

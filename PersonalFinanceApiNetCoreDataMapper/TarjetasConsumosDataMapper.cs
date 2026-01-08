@@ -5,6 +5,7 @@
 #pragma warning disable CS8618
 #pragma warning disable SA1623
 
+    using System.Collections.Generic;
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
     using PersonalFinanceApiNetCoreModel.Interfaces;
@@ -98,6 +99,30 @@
         }
 
         /// <summary>
+        /// Metodo para obtener un registro.
+        /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de TarjetaConsumoResumen.</returns>
+        public List<T> GetResumenByCard<T>(List<Parametro> parametros)
+        {
+            var lst = new List<TarjetaConsumoResumen>();
+
+            var mysql = new MySQLConnectionDM();
+
+            var mySqlDataReader = mysql.GetDataReader("spCreditCardSpendingtGetResumenByCard", parametros);
+
+            while (mySqlDataReader.Read())
+            {
+                lst.Add(this.MapperResumeData(mySqlDataReader, parametros));
+            }
+
+            mysql.Close();
+
+            return (List<T>)Convert.ChangeType(lst, typeof(List<TarjetaConsumoResumen>));
+        }
+
+        /// <summary>
         /// Metodo para agregar un registro nuevo.
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
@@ -165,6 +190,35 @@
             };
 
             return entidad;
+        }
+
+        /// <summary>
+        /// Mapeo de registro.
+        /// </summary>
+        /// <param name="mySqlDataReader">MySqlDataReader.</param>
+        /// <returns>Entidad respectiva.</returns>
+        private TarjetaConsumoResumen MapperResumeData(MySqlDataReader mySqlDataReader, List<Parametro> parametros)
+        {
+            TarjetaConsumoResumen tarjetaConsumoResumen = new ()
+            {
+                Id = int.Parse(parametros.Find(x => x.Nombre == "pCardsId").Valor.ToString()),
+                Enero = (decimal)mySqlDataReader["january"],
+                Febrero = (decimal)mySqlDataReader["february"],
+                Marzo = (decimal)mySqlDataReader["march"],
+                Abril = (decimal)mySqlDataReader["april"],
+                Mayo = (decimal)mySqlDataReader["may"],
+                Junio = (decimal)mySqlDataReader["june"],
+                Julio = (decimal)mySqlDataReader["july"],
+                Agosto = (decimal)mySqlDataReader["august"],
+                Septiembre = (decimal)mySqlDataReader["september"],
+                Octubre = (decimal)mySqlDataReader["october"],
+                Noviembre = (decimal)mySqlDataReader["november"],
+                Diciembre = (decimal)mySqlDataReader["december"],
+                EntidadCompra = mySqlDataReader["purchasingentity"].ToString(),
+                Ano = int.Parse(parametros.Find(x => x.Nombre == "pYear").Valor.ToString()),
+            };
+
+            return tarjetaConsumoResumen;
         }
     }
 }
