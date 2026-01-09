@@ -136,5 +136,38 @@
 
             return id;
         }
+
+        // <inheritdoc/>
+        public long ExecuteSP(string spCommandName, List<Parametro>? parametros)
+        {
+            long id = 0;
+            try
+            {
+                MySqlCommand cmd = new (spCommandName, this.Connection)
+                {
+                    CommandType = CommandType.StoredProcedure,
+                };
+
+                if (parametros != null)
+                {
+                    foreach (var parametro in parametros)
+                    {
+                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                    }
+                }
+
+                id = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return id;
+        }
     }
 }

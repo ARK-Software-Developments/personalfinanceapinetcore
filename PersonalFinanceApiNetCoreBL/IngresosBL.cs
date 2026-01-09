@@ -60,6 +60,18 @@
         }
 
         /// <summary>
+        /// Método para obtener un solo registro.
+        /// </summary>
+        /// <param name="parametros">Informacion a agregar/actualizar.</param>
+        /// <returns>Lista de entida.</returns>
+        public List<object> IncomeCopyBudget(List<Parametro> parametros)
+        {
+            return [
+                   this.mapper.IncomeCopyBudget(parametros),
+                    ];
+        }
+
+        /// <summary>
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <param name="ano">Año.</param>

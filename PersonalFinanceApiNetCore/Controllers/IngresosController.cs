@@ -118,5 +118,30 @@
 
             return response;
         }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPost("incomecopybudget")]
+        public GeneralResponse IncomeCopyBudget([FromBody] List<Parametro> parametros)
+        {
+            var entidades = new IngresosBL().IncomeCopyBudget(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "incomecopybudget",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+            return response;
+        }
     }
 }
