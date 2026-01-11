@@ -1,9 +1,7 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
-    using Google.Protobuf;
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
-    using System.Globalization;
 
     /// <summary>
     /// Clase PagosBL.
@@ -60,41 +58,45 @@
                     break;
             }
 
+            this.RecordPayment(parametros);
+
             return [ result ];
         }
 
+        /// <summary>
+        /// Método automatico de calcular el egreso en balance.
+        /// </summary>
+        /// <param name="parametros">List de Parametro.</param>
         private void RecordPayment(List<Parametro> parametros)
         {
-            int currentYear = DateTime.Now.Year;
-            int monthPaytment = DateTime.ParseExact(parametros.Find(p => p.Nombre == "pDateOfPayment").Valor.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture).Month;
-            int typeOfExpenseId = int.Parse(parametros.Find(p => p.Nombre == "pReasonForPayment").Valor.ToString());
-            decimal amount = decimal.Parse(parametros.Find(p => p.Nombre == "pAmountPaid").Valor.ToString(), CultureInfo.InvariantCulture);
+            if (parametros == null || parametros.Count == 0)
+            {
+                return;
+            }
 
-            parametros =
-            [
-                new ()
+            var pDateOfPayment = parametros.Find(p => p.Nombre == "pDateOfPayment").Valor.ToString();
+
+            if (!string.IsNullOrEmpty(pDateOfPayment))
+            {
+                int yearPaytment = DateTime.Parse(pDateOfPayment).Year;
+                int monthPaytment = DateTime.Parse(pDateOfPayment).Month;
+
+                parametros =
+                [
+                    new ()
                 {
-                    Nombre = "pTypeOfExpenseId",
-                    Valor = typeOfExpenseId,
-                },
-                new ()
-                {
-                    Nombre = "pAmount",
-                    Valor = amount,
+                    Nombre = "pYear",
+                    Valor = yearPaytment,
                 },
                 new ()
                 {
                     Nombre = "pMonth",
                     Valor = monthPaytment,
                 },
-                new ()
-                {
-                    Nombre = "pYear",
-                    Valor = currentYear,
-                },
             ];
 
-            this.mapper.RegisterPayment(parametros);
+                this.mapper.RegisterPaymentInBalance(parametros);
+            }
         }
     }
 }
