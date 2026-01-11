@@ -106,9 +106,9 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public long RegisterPayment(List<Parametro> parametros)
+        public long RegisterPaymentInBalance(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Update("spBillsUpdateByPayment", parametros);
+            return new MySQLConnectionDM().ExecuteSP("spBalanceUpdateProcessPayments", parametros);
         }
 
         /// <summary>

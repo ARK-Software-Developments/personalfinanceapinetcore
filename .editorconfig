@@ -1,0 +1,16 @@
+﻿[*.cs]
+
+# IDE0079: Quitar supresión innecesaria
+dotnet_diagnostic.IDE0079.severity = none
+
+# IDE0044: Agregar modificador de solo lectura
+dotnet_diagnostic.IDE0044.severity = none
+
+# SA1011: Closing square brackets should be spaced correctly
+dotnet_diagnostic.SA1011.severity = none
+
+# SA1010: Opening square brackets should be spaced correctly
+dotnet_diagnostic.SA1010.severity = none
+
+# CS8602: Desreferencia de una referencia posiblemente NULL.
+dotnet_diagnostic.CS8602.severity = none
