@@ -32,29 +32,43 @@
         /// <summary>
         /// Gets or sets propiedad type.
         /// </summary>
-        [JsonPropertyOrder(3)]
+        [JsonPropertyOrder(4)]
         [JsonProperty("type")]
         public string Tipo { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad messaje.
         /// </summary>
-        [JsonPropertyOrder(3)]
+        [JsonPropertyOrder(5)]
         [JsonProperty("messaje")]
         public string Mensaje { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad to.
         /// </summary>
-        [JsonPropertyOrder(3)]
+        [JsonPropertyOrder(6)]
         [JsonProperty("to")]
         public string Para { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad app.
         /// </summary>
-        [JsonPropertyOrder(3)]
+        [JsonPropertyOrder(7)]
         [JsonProperty("app")]
         public string Aplicacion { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad level.
+        /// </summary>
+        [JsonPropertyOrder(8)]
+        [JsonProperty("level")]
+        public string Nivel { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad img.
+        /// </summary>
+        [JsonPropertyOrder(9)]
+        [JsonProperty("img")]
+        public string Imagen { get; set; }
     }
 }

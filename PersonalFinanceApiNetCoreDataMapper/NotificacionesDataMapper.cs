@@ -30,7 +30,7 @@
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("sp_NotificationsGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spNotificationsGetAll");
 
             while (mySqlDataReader.Read())
             {
@@ -82,6 +82,8 @@
                 Mensaje = mySqlDataReader["messaje"].ToString(),
                 Para = mySqlDataReader["to"].ToString(),
                 Aplicacion = mySqlDataReader["app"].ToString(),
+                Nivel = mySqlDataReader["level"].ToString(),
+                Imagen = mySqlDataReader["img"].ToString(),
             };
 
             return entidad;
