@@ -65,7 +65,7 @@
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+                EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
 
             return mySqlDataReader;
@@ -94,7 +94,7 @@
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+                EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
             finally
             {
@@ -127,7 +127,7 @@
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+                EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
             finally
             {
@@ -160,7 +160,7 @@
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry("Aplication", ex.ToString(), EventLogEntryType.Error);
+                EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
             finally
             {

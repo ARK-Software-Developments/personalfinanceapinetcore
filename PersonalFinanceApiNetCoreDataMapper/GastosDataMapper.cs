@@ -117,6 +117,16 @@
         }
 
         /// <summary>
+        /// Metodo para actualizar un registro.
+        /// </summary>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de categorias.</returns>
+        public long UpdateByMonth(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().Update("spBalanceUpdateProcessPostCreditCard", parametros);
+        }
+
+        /// <summary>
         /// Mapeo de registro.
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>

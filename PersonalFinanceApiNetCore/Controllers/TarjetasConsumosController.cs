@@ -94,6 +94,30 @@
             return response;
         }
 
+        /// <summary>
+        /// GetId.
+        /// </summary>
+        /// <param name="id">Id del registro.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPost("resumenbyyear/")]
+        public GeneralResponse ResumenByYear([FromBody] List<Parametro> parametros)
+        {
+            List<TarjetaConsumoResumen> lstTarjetaConsumoResumen = new TarjetasConsumosBL().GetResumenByYear(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "post",
+                    Operacion = "resumenbyyear/",
+                    Recurso = string.Empty,
+                },
+                Data = lstTarjetaConsumoResumen,
+            };
+
+            return response;
+        }
 
         /// <summary>
         /// AddEntity.

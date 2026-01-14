@@ -53,6 +53,16 @@
         /// <summary>
         /// Método para obtener un solo registro.
         /// </summary>
+        /// <param name="parametros">Informacion a agregar/actualizar.</param>
+        /// <returns>Lista de entida.</returns>
+        public List<TarjetaConsumoResumen> GetResumenByYear(List<Parametro> parametros)
+        {
+            return this.mapper.GetResumenByYear<TarjetaConsumoResumen>(parametros);
+        }
+
+        /// <summary>
+        /// Método para obtener un solo registro.
+        /// </summary>
         /// <param name="operacion">Operacion Create/Update.</param>
         /// <param name="parametros">Informacion a agregar/actualizar.</param>
         /// <returns>Lista de entida.</returns>

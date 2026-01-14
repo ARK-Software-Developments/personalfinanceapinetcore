@@ -45,5 +45,30 @@
 
             return response;
         }
+
+        /// <summary>
+        /// Proceso de actualizacion de bill o presupuesto a partir de los regstrado en consumos de tarjetas.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("creditcardspendingup")]
+        public GeneralResponse IniciarProcesoActualizacionGM([FromBody] List<Parametro> parametros)
+        {
+            new ProcesoBalanceBL().IniciarProcesoGM(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "put",
+                    Operacion = "update",
+                    Recurso = string.Empty,
+                },
+                Data = new List<object>() { true },
+            };
+
+            return response;
+        }
     }
 }
