@@ -123,6 +123,30 @@
         }
 
         /// <summary>
+        /// Metodo para obtener un registro.
+        /// </summary>
+        /// <typeparam name="T">Lista del tipo.</typeparam>
+        /// <param name="parametros">Id del registro.</param>
+        /// <returns>Lista de TarjetaConsumoResumen.</returns>
+        public List<T> GetResumenByYear<T>(List<Parametro> parametros)
+        {
+            var lst = new List<TarjetaConsumoResumen>();
+
+            var mysql = new MySQLConnectionDM();
+
+            var mySqlDataReader = mysql.GetDataReader("spCreditCardSpendingtGetResumen", parametros);
+
+            while (mySqlDataReader.Read())
+            {
+                lst.Add(this.MapperResumeData(mySqlDataReader, null));
+            }
+
+            mysql.Close();
+
+            return (List<T>)Convert.ChangeType(lst, typeof(List<TarjetaConsumoResumen>));
+        }
+
+        /// <summary>
         /// Metodo para agregar un registro nuevo.
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
@@ -197,11 +221,11 @@
         /// </summary>
         /// <param name="mySqlDataReader">MySqlDataReader.</param>
         /// <returns>Entidad respectiva.</returns>
-        private TarjetaConsumoResumen MapperResumeData(MySqlDataReader mySqlDataReader, List<Parametro> parametros)
+        private TarjetaConsumoResumen MapperResumeData(MySqlDataReader mySqlDataReader, List<Parametro>? parametros = null)
         {
             TarjetaConsumoResumen tarjetaConsumoResumen = new ()
             {
-                Id = int.Parse(parametros.Find(x => x.Nombre == "pCardsId").Valor.ToString()),
+                Id = parametros == null ? (int)mySqlDataReader["id"] : int.Parse(parametros.Find(x => x.Nombre == "pCardsId").Valor.ToString()),
                 Enero = (decimal)mySqlDataReader["january"],
                 Febrero = (decimal)mySqlDataReader["february"],
                 Marzo = (decimal)mySqlDataReader["march"],
@@ -214,8 +238,8 @@
                 Octubre = (decimal)mySqlDataReader["october"],
                 Noviembre = (decimal)mySqlDataReader["november"],
                 Diciembre = (decimal)mySqlDataReader["december"],
-                EntidadCompra = mySqlDataReader["purchasingentity"].ToString(),
-                Ano = int.Parse(parametros.Find(x => x.Nombre == "pYear").Valor.ToString()),
+                EntidadCompra = parametros == null ? mySqlDataReader["cardname"].ToString() : mySqlDataReader["purchasingentity"].ToString(),
+                Ano = parametros == null ? 0 : int.Parse(parametros.Find(x => x.Nombre == "pYear").Valor.ToString()),
             };
 
             return tarjetaConsumoResumen;
