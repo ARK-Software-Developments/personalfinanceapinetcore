@@ -1,7 +1,9 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
+    using PersonalFinanceApiNetCoreBL.Procesos;
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
+    using System;
 
     /// <summary>
     /// Clase GastosBL.
@@ -67,6 +69,40 @@
         public List<Gasto> GetAllByYear(int ano)
         {
             return this.mapper.GetAll<Gasto>(ano);
+        }
+
+        /// <summary>
+        /// Proceso de copiar prespuesto mensual.
+        /// </summary>
+        /// <param name="parametros">Lista de Parametro.</param>
+        /// <returns>Lista de Objetos.</returns>
+        public List<object> BillsCopyMonth(List<Parametro> parametros)
+        {
+            this.mapper.BillsCopyMonth(parametros);
+
+            int ano = int.Parse(parametros.Find(x => x.Nombre == "pYearTo").Valor.ToString());
+
+            int mes = int.Parse(parametros.Find(x => x.Nombre == "pMonthTo").Valor.ToString());
+
+            parametros =
+                [
+                    new ()
+                {
+                    Nombre = "pYear",
+                    Valor = ano,
+                },
+                new ()
+                {
+                    Nombre = "pMonth",
+                    Valor = mes,
+                },
+            ];
+
+            new ProcesoBalanceBL().IniciarProcesoUpdateBalance(parametros);
+
+            return [
+                  true,
+                    ];
         }
     }
 }

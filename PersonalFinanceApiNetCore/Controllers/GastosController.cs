@@ -118,5 +118,30 @@
 
             return response;
         }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("copymonthlyexpense")]
+        public GeneralResponse CopiarPresupuestoMensual([FromBody] List<Parametro> parametros)
+        {
+            var entidades = new GastosBL().BillsCopyMonth(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "put",
+                    Operacion = "copymonthlyexpense",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+            return response;
+        }
     }
 }

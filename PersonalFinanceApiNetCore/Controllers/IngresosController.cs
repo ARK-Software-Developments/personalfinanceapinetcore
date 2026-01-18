@@ -125,17 +125,17 @@
         /// <param name="parametros">Parametro lista.</param>
         /// <returns>GeneralResponse.</returns>
         [Produces("application/json")]
-        [HttpPost("incomecopybudget")]
-        public GeneralResponse IncomeCopyBudget([FromBody] List<Parametro> parametros)
+        [HttpPut("copymonthlyincome")]
+        public GeneralResponse CopiarIngresoMensual([FromBody] List<Parametro> parametros)
         {
-            var entidades = new IngresosBL().IncomeCopyBudget(parametros);
+            var entidades = new IngresosBL().CopyMonthIncome(parametros);
 
             var response = new GeneralResponse()
             {
                 Meta = new Meta()
                 {
-                    Metodo = "post",
-                    Operacion = "incomecopybudget",
+                    Metodo = "put",
+                    Operacion = "copymonthlyincome",
                     Recurso = string.Empty,
                 },
                 Data = entidades,

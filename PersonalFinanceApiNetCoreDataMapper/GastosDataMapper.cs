@@ -175,5 +175,20 @@
 
             return entidad;
         }
+
+        /// <summary>
+        /// Proceso mapeo.
+        /// </summary>
+        /// <param name="parametros">Lista de Parametro.</param>
+        /// <returns>Identificado de procesado.</returns>
+        public long BillsCopyMonth(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().ExecuteSP("spBillsCopyMonth", parametros);
+        }
+
+        public long BalanceUpdateProcessBills(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().ExecuteSP("spBalanceUpdateProcessBills", parametros);
+        }
     }
 }

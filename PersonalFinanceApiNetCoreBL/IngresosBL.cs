@@ -64,10 +64,10 @@
         /// </summary>
         /// <param name="parametros">Informacion a agregar/actualizar.</param>
         /// <returns>Lista de entida.</returns>
-        public List<object> IncomeCopyBudget(List<Parametro> parametros)
+        public List<object> CopyMonthIncome(List<Parametro> parametros)
         {
             return [
-                   this.mapper.IncomeCopyBudget(parametros),
+                   this.mapper.CopyMonthIncome(parametros),
                     ];
         }
 

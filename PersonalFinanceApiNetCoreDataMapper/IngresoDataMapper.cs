@@ -120,9 +120,9 @@
         /// </summary>
         /// <param name="parametros">Id del registro.</param>
         /// <returns>Lista de categorias.</returns>
-        public long IncomeCopyBudget(List<Parametro> parametros)
+        public long CopyMonthIncome(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().ExecuteSP("spIncomeCopyBudget", parametros);
+            return new MySQLConnectionDM().ExecuteSP("spIncomeCopyMonth", parametros);
         }
 
         /// <summary>
