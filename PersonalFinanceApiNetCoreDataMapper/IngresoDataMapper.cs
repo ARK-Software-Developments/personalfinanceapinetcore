@@ -125,6 +125,11 @@
             return new MySQLConnectionDM().ExecuteSP("spIncomeCopyMonth", parametros);
         }
 
+        public long BalanceUpdateProcessIncome(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().ExecuteSP("spBalanceUpdateProcessIncome", parametros);
+        }
+
         /// <summary>
         /// Mapeo de registro.
         /// </summary>

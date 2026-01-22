@@ -119,5 +119,17 @@
                 EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
         }
+
+        public void IniciarProcesoUpdateBalanceIngreso(List<Parametro>? parametros)
+        {
+            try
+            {
+                var result = new IngresoDataMapper().BalanceUpdateProcessIncome(parametros);
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
+            }
+        }
     }
 }
