@@ -1,5 +1,6 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
+    using PersonalFinanceApiNetCoreBL.Procesos;
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
 
@@ -57,6 +58,8 @@
                     this.mapper.UpdateEntity(parametros),
                     ];
             }
+
+            
         }
 
         /// <summary>
@@ -69,6 +72,40 @@
             return [
                    this.mapper.CopyMonthIncome(parametros),
                     ];
+        }
+
+        /// <summary>
+        /// Método para obtener un solo registro.
+        /// </summary>
+        /// <param name="parametros">Informacion a agregar/actualizar.</param>
+        /// <returns>Lista de entida.</returns>
+        public List<object> UpdateBalanceMensual(List<Parametro> parametros)
+        {
+            int ano = int.Parse(parametros.Find(x => x.Nombre == "pYear").Valor.ToString());
+            int mes = 0;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                mes = i;
+
+                parametros =
+                [
+                    new ()
+                {
+                    Nombre = "pYear",
+                    Valor = ano,
+                },
+                new ()
+                {
+                    Nombre = "pMonth",
+                    Valor = mes,
+                },
+            ];
+
+                new ProcesoBalanceBL().IniciarProcesoUpdateBalanceIngreso(parametros);
+            }
+
+            return [ true ];
         }
 
         /// <summary>

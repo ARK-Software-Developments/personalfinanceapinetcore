@@ -143,5 +143,30 @@
 
             return response;
         }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("updatemonthlyincomes")]
+        public GeneralResponse ActualizarIngresosMensual([FromBody] List<Parametro> parametros)
+        {
+            var entidades = new IngresosBL().UpdateBalanceMensual(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "put",
+                    Operacion = "updatemonthlyincomes",
+                    Recurso = string.Empty,
+                },
+                Data = entidades,
+            };
+
+            return response;
+        }
     }
 }
