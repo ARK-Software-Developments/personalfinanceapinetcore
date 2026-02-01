@@ -6,20 +6,20 @@
 #pragma warning disable SA1202
 #pragma warning disable CA1416 // Validar la compatibilidad de la plataforma
 
-    using System.Data;
-    using System.Diagnostics;
     using MySql.Data.MySqlClient;
     using PersonalFinanceApiNetCoreModel;
+    using System.Data;
+    using System.Diagnostics;
+    using System.Text;
 
     /// <summary>
     /// Clase de conexion a la bd.
     /// </summary>
     public class MySQLConnectionDM
     {
-        // <inheritdoc/>
-        public const string ConnectionString = "Server=localhost;Database=personalfinance;Uid=desarrollo;Pwd=PersonalFinance2025;Max Pool Size=250";
+        public const string ConnectionString =
+            "Server=localhost;Database=personalfinance;Uid=desarrollo;Pwd=PersonalFinance2025;Charset=utf8mb4;";
 
-        // <inheritdoc/>
         public MySqlConnection Connection { get; set; }
 
         /// <summary>
@@ -30,7 +30,6 @@
             this.Iniciar();
         }
 
-        // <inheritdoc/>
         private void Iniciar()
         {
             this.Connection = new MySqlConnection(ConnectionString);
@@ -42,10 +41,9 @@
             this.Connection.Close();
         }
 
-        // <inheritdoc/>
         public MySqlDataReader GetDataReader(string spCommandName, List<Parametro>? parametros = null)
         {
-            MySqlDataReader? mySqlDataReader = null;
+            MySqlDataReader? reader = null;
             try
             {
                 MySqlCommand cmd = new (spCommandName, this.Connection)
@@ -57,21 +55,20 @@
                 {
                     foreach (var parametro in parametros)
                     {
-                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                        cmd.Parameters.AddWithValue($"@{parametro.Nombre}", NormalizeUnicode(parametro.Valor) ?? DBNull.Value);
                     }
                 }
 
-                mySqlDataReader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
             }
             catch (Exception ex)
             {
                 EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
 
-            return mySqlDataReader;
+            return reader;
         }
 
-        // <inheritdoc/>
         public long Add(string spCommandName, List<Parametro>? parametros)
         {
             long id = 0;
@@ -86,7 +83,7 @@
                 {
                     foreach (var parametro in parametros)
                     {
-                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                        cmd.Parameters.AddWithValue($"@{parametro.Nombre}", NormalizeUnicode(parametro.Valor) ?? DBNull.Value);
                     }
                 }
 
@@ -104,10 +101,10 @@
             return id;
         }
 
-        // <inheritdoc/>
         public long Update(string spCommandName, List<Parametro>? parametros)
         {
-            long id = 0;
+            long result = 0;
+
             try
             {
                 MySqlCommand cmd = new (spCommandName, this.Connection)
@@ -119,11 +116,11 @@
                 {
                     foreach (var parametro in parametros)
                     {
-                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                        cmd.Parameters.AddWithValue($"@{parametro.Nombre}", NormalizeUnicode(parametro.Valor) ?? DBNull.Value);
                     }
                 }
 
-                id = cmd.ExecuteNonQuery();
+                result = cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -134,13 +131,13 @@
                 this.Connection.Close();
             }
 
-            return id;
+            return result;
         }
 
-        // <inheritdoc/>
         public long ExecuteSP(string spCommandName, List<Parametro>? parametros)
         {
-            long id = 0;
+            long result = 0;
+
             try
             {
                 MySqlCommand cmd = new (spCommandName, this.Connection)
@@ -152,11 +149,11 @@
                 {
                     foreach (var parametro in parametros)
                     {
-                        cmd.Parameters.AddWithValue(parametro.Nombre, parametro.Valor);
+                        cmd.Parameters.AddWithValue($"@{parametro.Nombre}", NormalizeUnicode(parametro.Valor) ?? DBNull.Value);
                     }
                 }
 
-                id = cmd.ExecuteNonQuery();
+                result = cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -167,7 +164,19 @@
                 this.Connection.Close();
             }
 
-            return id;
+            return result;
         }
+
+        private static object NormalizeUnicode(object? value)
+        {
+            if (value is string s)
+            {
+                // Normaliza la cadena a NFC (forma compuesta)
+                return s.Normalize(NormalizationForm.FormC);
+            }
+
+            return value ?? DBNull.Value;
+        }
+
     }
 }
