@@ -6,11 +6,11 @@
 #pragma warning disable SA1202
 #pragma warning disable CA1416 // Validar la compatibilidad de la plataforma
 
-    using MySql.Data.MySqlClient;
-    using PersonalFinanceApiNetCoreModel;
     using System.Data;
     using System.Diagnostics;
     using System.Text;
+    using MySql.Data.MySqlClient;
+    using PersonalFinanceApiNetCoreModel;
 
     /// <summary>
     /// Clase de conexion a la bd.
