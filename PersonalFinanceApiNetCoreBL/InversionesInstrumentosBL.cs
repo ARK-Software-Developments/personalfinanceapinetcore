@@ -2,19 +2,18 @@
 {
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
-    using System.Linq;
 
     /// <summary>
-    /// Clase InversionesBL.
+    /// Clase InversionesInstrumentosBL.
     /// </summary>
-    public class InversionesBL
+    public class InversionesInstrumentosBL
     {
-        private InversionesDataMapper mapper;
+        private InversionesInstrumentosDataMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InversionesBL"/> class.
+        /// Initializes a new instance of the <see cref="InversionesInstrumentosBL"/> class.
         /// </summary>
-        public InversionesBL()
+        public InversionesInstrumentosBL()
         {
             this.mapper = new ();
         }
@@ -23,9 +22,9 @@
         /// Método para obtener todos los registros de la categorias.
         /// </summary>
         /// <returns>Lista de categorias.</returns>
-        public List<Inversion> GetAll()
+        public List<InversionInstrumento> GetAll()
         {
-            return this.mapper.GetAll<Inversion>();
+            return this.mapper.GetAll<InversionInstrumento>();
         }
 
         /// <summary>
@@ -33,9 +32,9 @@
         /// </summary>
         /// <param name="id">Id del registro.</param>
         /// <returns>Lista de entida.</returns>
-        public List<Inversion> GetId(int id)
+        public List<InversionInstrumento> GetId(int id)
         {
-            return this.mapper.GetId<Inversion>(id);
+            return this.mapper.GetId<InversionInstrumento>(id);
         }
 
         /// <summary>

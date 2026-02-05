@@ -119,7 +119,7 @@
         /// <returns>Lista de categorias.</returns>
         public long AddEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Add("spTransactionsAdd", parametros);
+            return new MySQLConnectionDM().Add("spInvestmentsAdd", parametros);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@
         /// <returns>Lista de categorias.</returns>
         public long UpdateEntity(List<Parametro> parametros)
         {
-            return new MySQLConnectionDM().Update("spTransactionsUpdate", parametros);
+            return new MySQLConnectionDM().Update("spInvestmentsUpdate", parametros);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@
                 Estado = mySqlDataReader["state"].ToString(),
                 Tipo = new InversionTipo()
                 {
-                    Id = (int)mySqlDataReader["investmentinstrumenttype"],
+                    Id = (int)mySqlDataReader["investmenttypeid"],
                     Nombre = mySqlDataReader["denomination"].ToString(),
                     Tipo = mySqlDataReader["type"].ToString(),
                 },

@@ -58,7 +58,7 @@
 
             var mysql = new MySQLConnectionDM();
 
-            var mySqlDataReader = mysql.GetDataReader("spInvestmentsGetAll");
+            var mySqlDataReader = mysql.GetDataReader("spInvestmentsElementsGetAll");
 
             while (mySqlDataReader.Read())
             {
@@ -143,7 +143,7 @@
                 NumeroOperacion = mySqlDataReader["operationnumber"].ToString(),
                 Instrumento = new InversionInstrumento()
                 {
-                    Id = Convert.ToInt32(mySqlDataReader["investmentinstrumentsid"]),
+                    Id = Convert.ToInt32(mySqlDataReader["investmenttypeid"]),
                     Codigo = mySqlDataReader["code"].ToString(),
                     Detalle = mySqlDataReader["detail"].ToString(),
                     Tipo = new InversionTipo()
