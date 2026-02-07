@@ -36,7 +36,7 @@
                 Meta = new Meta()
                 {
                     Metodo = "post",
-                    Operacion = "update",
+                    Operacion = "paymentsrecorded",
                     Recurso = string.Empty,
                 },
                 Data = new List<object>() { true },
@@ -61,7 +61,7 @@
                 Meta = new Meta()
                 {
                     Metodo = "put",
-                    Operacion = "update",
+                    Operacion = "creditcardspendingup",
                     Recurso = string.Empty,
                 },
                 Data = new List<object>() { true },
@@ -88,7 +88,32 @@
                 Meta = new Meta()
                 {
                     Metodo = "put",
-                    Operacion = "update",
+                    Operacion = "monthlybalance",
+                    Recurso = string.Empty,
+                },
+                Data = new List<object>() { true },
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("processvrp")]
+        public GeneralResponse ProcesoVRP([FromBody] List<Parametro> parametros)
+        {
+            new ProcesoBalanceBL().IniciarProcesoVRP(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "put",
+                    Operacion = "processvrp",
                     Recurso = string.Empty,
                 },
                 Data = new List<object>() { true },

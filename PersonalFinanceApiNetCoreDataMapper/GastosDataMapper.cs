@@ -190,5 +190,10 @@
         {
             return new MySQLConnectionDM().ExecuteSP("spBalanceUpdateProcessBills", parametros);
         }
+
+        public object ProcesoVRP(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().ExecuteSP("spBillsProcessVRP", parametros);
+        }
     }
 }

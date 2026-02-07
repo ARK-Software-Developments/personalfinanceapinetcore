@@ -131,5 +131,17 @@
                 EventLog.WriteEntry("Application", ex.ToString(), EventLogEntryType.Error);
             }
         }
+
+        public void IniciarProcesoVRP(List<Parametro> parametros)
+        {
+            try
+            {
+                var result = new GastosDataMapper().ProcesoVRP(parametros);
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("PersonalFinance", ex.ToString(), EventLogEntryType.Error);
+            }
+        }
     }
 }
