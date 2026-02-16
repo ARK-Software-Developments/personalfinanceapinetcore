@@ -102,6 +102,7 @@
             Prestamo entidad = new ()
             {
                 Id = Convert.ToInt32(mySqlDataReader["id"]),
+                Numero = mySqlDataReader["number"] != DBNull.Value ? mySqlDataReader["number"].ToString() : string.Empty,
                 Beneficiario = mySqlDataReader["beneficiary"].ToString(),
                 Cuotas = (int)mySqlDataReader["numberofinstallments"],
                 FechaDeposito = mySqlDataReader["depositdate"] != DBNull.Value ? (DateTime)mySqlDataReader["depositdate"] : null,
@@ -109,7 +110,16 @@
                 Resumen = mySqlDataReader["summary"].ToString(),
                 TotalCapital = (decimal)mySqlDataReader["capitalamount"],
                 TotalDeuda = (decimal)mySqlDataReader["totalamount"],
+                CodigoTransaccion = mySqlDataReader["transactioncode"] != DBNull.Value ? mySqlDataReader["transactioncode"].ToString() : string.Empty,
                 Estado = mySqlDataReader["state"].ToString(),
+                Entidad = mySqlDataReader["entityid"] != DBNull.Value ?
+                    new Entidad()
+                    {
+                        Id = Convert.ToInt32(mySqlDataReader["entityid"]),
+                        Nombre = mySqlDataReader["entity"].ToString(),
+                        Tipo = mySqlDataReader["entitytype"].ToString(),
+                    }
+                    : null,
             };
 
             return entidad;
