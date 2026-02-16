@@ -1,5 +1,6 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
+    using System.Collections.Generic;
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
 
@@ -45,20 +46,90 @@
         /// <returns>Lista de entida.</returns>
         public List<object> AddUpdateEntity(string operacion, List<Parametro> parametros)
         {
-            object result = 0;
+            List<object> response = [];
+            object id = 0;
+
+            decimal montoCuota = decimal.Parse(parametros.Find(p => p.Nombre == "inFirstInstallmentAmount").Valor.ToString().Replace(".", ","));
+
+            string? s = parametros.Find(p => p.Nombre == "inNumberOfInstallments").Valor.ToString();
+            int cuotas = string.IsNullOrEmpty(s) ? 1 : int.Parse(s);
 
             switch (operacion)
             {
                 case "create":
-                    result = this.mapper.AddEntity(parametros);
+                    id = this.mapper.AddEntity(parametros);
                     break;
 
                 case "update":
-                    result = this.mapper.UpdateEntity(parametros);
+                    this.mapper.UpdateEntity(parametros);
+                    id = parametros?.Find(p => p.Nombre == "inId").Valor.ToString();
                     break;
             }
 
-            return [ result ];
+            response.Add(id);
+
+            int inLoansAssignedId = int.Parse(id.ToString());
+
+            var prestamoDetalleMapper = new PrestamosDetallesDataMapper();
+            var tieneDetalle = prestamoDetalleMapper.GetId<PrestamoDetalle>(inLoansAssignedId);
+
+            var tareas = new List<Task>();
+
+            if (tieneDetalle != null && tieneDetalle.Count == 0)
+            {
+                List<Parametro> parametrosDetalle = [];
+
+                for (int i = 1; i <= cuotas; i++)
+                {
+                    parametrosDetalle =
+                    [
+                        new ()
+                            {
+                                Nombre = "inLoansAssignedId",
+                                Valor = inLoansAssignedId,
+                            },
+                            new ()
+                            {
+                                Nombre = "inNumberInstallment",
+                                Valor = i,
+                            },
+                            new ()
+                            {
+                                Nombre = "inFeeAmount",
+                                Valor = montoCuota,
+                            },
+                            new ()
+                            {
+                                Nombre = "inPaymentDate",
+                                Valor = DateTime.Now,
+                            },
+                            new ()
+                            {
+                                Nombre = "inProofOfPayment",
+                                Valor = string.Empty,
+                            },
+                            new ()
+                            {
+                                Nombre = "inPaymentMethod",
+                                Valor = string.Empty,
+                            },
+                            new ()
+                            {
+                                Nombre = "inStatus",
+                                Valor = "PENDIENTE",
+                            },
+                            new ()
+                            {
+                                Nombre = "inObservations",
+                                Valor = $"DETALLE AUTOMATICO PARA CUOTA {i.ToString()}",
+                            },
+                        ];
+
+                    tareas.Add(prestamoDetalleMapper.AddEntityAsync(parametrosDetalle));
+                }
+            }
+
+            return response;
         }
     }
 }
