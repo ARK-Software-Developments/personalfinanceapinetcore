@@ -110,6 +110,7 @@
                 Resumen = mySqlDataReader["summary"].ToString(),
                 TotalCapital = (decimal)mySqlDataReader["capitalamount"],
                 TotalDeuda = (decimal)mySqlDataReader["totalamount"],
+                MontoCuota = (decimal)mySqlDataReader["firstinstallmentamount"],
                 CodigoTransaccion = mySqlDataReader["transactioncode"] != DBNull.Value ? mySqlDataReader["transactioncode"].ToString() : string.Empty,
                 Estado = mySqlDataReader["state"].ToString(),
                 Entidad = mySqlDataReader["entityid"] != DBNull.Value ?

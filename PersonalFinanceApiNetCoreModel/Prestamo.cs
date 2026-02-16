@@ -59,27 +59,33 @@
         public int Cuotas { get; set; }
 
         /// <summary>
-        /// Gets or sets propiedad Estado.
+        /// Gets or sets propiedad MontoCuota.
         /// </summary>
         [JsonPropertyOrder(9)]
+        public decimal MontoCuota { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad Estado.
+        /// </summary>
+        [JsonPropertyOrder(10)]
         public Entidad Entidad { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Numero.
         /// </summary>
-        [JsonPropertyOrder(10)]
+        [JsonPropertyOrder(11)]
         public string Numero { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad CodigoTransaccion.
         /// </summary>
-        [JsonPropertyOrder(10)]
+        [JsonPropertyOrder(12)]
         public string CodigoTransaccion { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad Estado.
         /// </summary>
-        [JsonPropertyOrder(11)]
+        [JsonPropertyOrder(13)]
         public string Estado { get; set; }
     }
 }
