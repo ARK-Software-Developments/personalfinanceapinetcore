@@ -87,5 +87,11 @@
         /// </summary>
         [JsonPropertyOrder(13)]
         public string Estado { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad CantidadCuotas.
+        /// </summary>
+        [JsonPropertyOrder(14)]
+        public int CantidadCuotas { get; set; }
     }
 }

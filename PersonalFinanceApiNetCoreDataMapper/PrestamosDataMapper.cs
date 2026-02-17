@@ -121,6 +121,7 @@
                         Tipo = mySqlDataReader["entitytype"].ToString(),
                     }
                     : null,
+                CantidadCuotas = int.Parse(mySqlDataReader["quantityinstallments"].ToString()),
             };
 
             return entidad;
