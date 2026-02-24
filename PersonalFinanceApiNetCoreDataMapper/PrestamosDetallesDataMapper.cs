@@ -127,6 +127,7 @@
                 Cuota = (int)mySqlDataReader["numberinstallment"],
                 MontoCuota = mySqlDataReader["feeamount"] != DBNull.Value ? (decimal)mySqlDataReader["feeamount"] : 0,
                 FechaPagado = mySqlDataReader["paymentdate"] != DBNull.Value ? (DateTime)mySqlDataReader["paymentdate"] : null,
+                FechaVencimiento = mySqlDataReader["expirationdate"] != DBNull.Value ? (DateTime)mySqlDataReader["expirationdate"] : null,
                 Estado = mySqlDataReader["status"].ToString(),
                 PrestamoId = (int)mySqlDataReader["loansassignedid"],
                 ComprobantePago = mySqlDataReader["proofofpayment"].ToString(),

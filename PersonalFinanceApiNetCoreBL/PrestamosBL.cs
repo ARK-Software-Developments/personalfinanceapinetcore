@@ -1,8 +1,10 @@
 ﻿namespace PersonalFinanceApiNetCoreBL
 {
-    using System.Collections.Generic;
     using PersonalFinanceApiNetCoreDataMapper;
     using PersonalFinanceApiNetCoreModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
 
     /// <summary>
     /// Clase PrestamosBL.
@@ -50,7 +52,7 @@
             object id = 0;
 
             decimal montoCuota = decimal.Parse(parametros.Find(p => p.Nombre == "inFirstInstallmentAmount").Valor.ToString().Replace(".", ","));
-
+            DateTime fechaDeposito = DateTime.ParseExact(parametros.Find(p => p.Nombre == "inDepositDate").Valor.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
             string? s = parametros.Find(p => p.Nombre == "inNumberOfInstallments").Valor.ToString();
             int cuotas = string.IsNullOrEmpty(s) ? 1 : int.Parse(s);
 
@@ -78,9 +80,15 @@
             if (tieneDetalle != null && tieneDetalle.Count == 0)
             {
                 List<Parametro> parametrosDetalle = [];
+                var inExpirationDate = fechaDeposito.AddMonths(1);
 
                 for (int i = 1; i <= cuotas; i++)
                 {
+                    if (i > 1)
+                    {
+                        inExpirationDate = inExpirationDate.AddMonths(1);
+                    }
+
                     parametrosDetalle =
                     [
                         new ()
@@ -102,6 +110,11 @@
                             {
                                 Nombre = "inPaymentDate",
                                 Valor = DateTime.Now,
+                            },
+                            new ()
+                            {
+                                Nombre = "inExpirationDate",
+                                Valor = inExpirationDate.ToString("yyyy-MM-dd"),
                             },
                             new ()
                             {
