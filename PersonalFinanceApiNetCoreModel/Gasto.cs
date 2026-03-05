@@ -64,5 +64,13 @@
         /// </summary>
         [JsonPropertyOrder(22)]
         public bool Activo { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad Recurso.
+        /// </summary>
+        [JsonPropertyOrder(23)]
+        public string Recurso { get; set; }
+
+        public List<CalendarioVencimiento>? Vencimientos { get; set; }
     }
 }

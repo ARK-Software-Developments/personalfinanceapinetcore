@@ -170,6 +170,7 @@
                 Verificado = (bool)mySqlDataReader["verified"],
                 Reservado = (bool)mySqlDataReader["reserved"],
                 Pagado = (bool)mySqlDataReader["paid"],
+                Recurso = mySqlDataReader["resourcepayment"].ToString(),
                 Activo = (bool)mySqlDataReader["active"],
             };
 

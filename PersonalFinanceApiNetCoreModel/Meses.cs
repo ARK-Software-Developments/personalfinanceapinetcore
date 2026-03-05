@@ -5,7 +5,7 @@
     /// <summary>
     /// Clase Meses.
     /// </summary>
-    public abstract class Meses : AbstractModelExternder
+    public class Meses : AbstractModelExternder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Meses"/> class.

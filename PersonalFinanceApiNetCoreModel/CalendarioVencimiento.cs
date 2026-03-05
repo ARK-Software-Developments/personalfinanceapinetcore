@@ -18,7 +18,7 @@ namespace PersonalFinanceApiNetCoreModel
         /// Gets or sets propiedad FechaVencimiento.
         /// </summary>
         [JsonPropertyOrder(2)]
-        public DateTime FechaVencimiento { get; set; }
+        public DateTime? FechaVencimiento { get; set; }
 
         /// <summary>
         /// Gets or sets propiedad TipoGastoId.
