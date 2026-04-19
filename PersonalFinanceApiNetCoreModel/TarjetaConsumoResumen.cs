@@ -19,5 +19,11 @@
         /// </summary>
         [JsonPropertyOrder(15)]
         public string EntidadCompra { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad NombreReferencia.
+        /// </summary>
+        [JsonPropertyOrder(16)]
+        public string NombreReferencia { get; set; }
     }
 }

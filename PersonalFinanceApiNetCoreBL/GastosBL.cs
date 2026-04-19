@@ -104,5 +104,10 @@
                   true,
                     ];
         }
+
+        public object BillsMonthlyByCategory(List<Parametro> parametros)
+        {
+            return this.mapper.GetMonthlyByCategory<GastoResumenCategoria>(parametros);
+        }
     }
 }

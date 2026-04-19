@@ -240,6 +240,7 @@
                 Diciembre = (decimal)mySqlDataReader["december"],
                 EntidadCompra = parametros == null ? mySqlDataReader["cardname"].ToString() : mySqlDataReader["purchasingentity"].ToString(),
                 Ano = parametros == null ? 0 : int.Parse(parametros.Find(x => x.Nombre == "pYear").Valor.ToString()),
+                NombreReferencia = mySqlDataReader["referencename"] != DBNull.Value ? mySqlDataReader["referencename"].ToString() : string.Empty,
             };
 
             return tarjetaConsumoResumen;

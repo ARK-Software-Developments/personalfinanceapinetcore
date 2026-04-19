@@ -143,5 +143,17 @@
                 EventLog.WriteEntry("PersonalFinance", ex.ToString(), EventLogEntryType.Error);
             }
         }
+
+        public void IniciarProcesoAD(List<Parametro> parametros)
+        {
+            try
+            {
+                var result = new GastosDataMapper().ProcesoEstado(parametros);
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("PersonalFinance", ex.ToString(), EventLogEntryType.Error);
+            }
+        }
     }
 }

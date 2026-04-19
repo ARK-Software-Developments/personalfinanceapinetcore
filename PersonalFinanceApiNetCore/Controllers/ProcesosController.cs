@@ -121,5 +121,30 @@
 
             return response;
         }
+
+        /// <summary>
+        /// AddEntity.
+        /// </summary>
+        /// <param name="parametros">Parametro lista.</param>
+        /// <returns>GeneralResponse.</returns>
+        [Produces("application/json")]
+        [HttpPut("processad")]
+        public GeneralResponse ProcesoAD([FromBody] List<Parametro> parametros)
+        {
+            new ProcesoBalanceBL().IniciarProcesoAD(parametros);
+
+            var response = new GeneralResponse()
+            {
+                Meta = new Meta()
+                {
+                    Metodo = "put",
+                    Operacion = "processap",
+                    Recurso = string.Empty,
+                },
+                Data = new List<object>() { true },
+            };
+
+            return response;
+        }
     }
 }

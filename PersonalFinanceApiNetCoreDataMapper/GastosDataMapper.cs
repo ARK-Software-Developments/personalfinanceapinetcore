@@ -178,6 +178,34 @@
         }
 
         /// <summary>
+        /// Mapeo de registro.
+        /// </summary>
+        /// <param name="mySqlDataReader">MySqlDataReader.</param>
+        /// <returns>Entidad respectiva.</returns>
+        private GastoResumenCategoria MapperDataResumen(MySqlDataReader mySqlDataReader)
+        {
+            GastoResumenCategoria entidad = new ()
+            {
+                Id = 0,
+                Enero = (decimal)mySqlDataReader["january"],
+                Febrero = (decimal)mySqlDataReader["february"],
+                Marzo = (decimal)mySqlDataReader["march"],
+                Abril = (decimal)mySqlDataReader["april"],
+                Mayo = (decimal)mySqlDataReader["may"],
+                Junio = (decimal)mySqlDataReader["june"],
+                Julio = (decimal)mySqlDataReader["july"],
+                Agosto = (decimal)mySqlDataReader["august"],
+                Septiembre = (decimal)mySqlDataReader["septembre"],
+                Octubre = (decimal)mySqlDataReader["october"],
+                Noviembre = (decimal)mySqlDataReader["november"],
+                Diciembre = (decimal)mySqlDataReader["december"],
+                Categoria = mySqlDataReader["category"].ToString(),
+            };
+
+            return entidad;
+        }
+
+        /// <summary>
         /// Proceso mapeo.
         /// </summary>
         /// <param name="parametros">Lista de Parametro.</param>
@@ -195,6 +223,29 @@
         public object ProcesoVRP(List<Parametro> parametros)
         {
             return new MySQLConnectionDM().ExecuteSP("spBillsProcessVRP", parametros);
+        }
+
+        public object ProcesoEstado(List<Parametro> parametros)
+        {
+            return new MySQLConnectionDM().ExecuteSP("spBillsProcessAD", parametros);
+        }
+
+        public object GetMonthlyByCategory<T>(List<Parametro> parametros)
+        {
+            var lstEntidades = new List<GastoResumenCategoria>();
+
+            var mysql = new MySQLConnectionDM();
+
+            var mySqlDataReader = mysql.GetDataReader("spBillsResumeCategoryGet", parametros);
+
+            while (mySqlDataReader.Read())
+            {
+                lstEntidades.Add(this.MapperDataResumen(mySqlDataReader));
+            }
+
+            mysql.Close();
+
+            return (List<T>)Convert.ChangeType(lstEntidades, typeof(List<GastoResumenCategoria>));
         }
     }
 }
