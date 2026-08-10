@@ -33,11 +33,6 @@
                     Nombre = "pYear",
                     Valor = ano,
                 },
-                new ()
-                {
-                    Nombre = "pActive",
-                    Valor = true,
-                },
 
             ];
 
