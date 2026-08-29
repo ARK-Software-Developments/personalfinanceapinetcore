@@ -15,7 +15,19 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PersonalFinance API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "PersonalFinance API",
+        Version = "v1",
+        Summary = "API para la gestión de finanzas personales",
+        Contact = new OpenApiContact
+        {
+            Name = "Andrés Kamycki",
+            Email = "andres.kamycki@gmail.com",
+            Url = new Uri("https://www.linkedin.com/in/andres-kamycki/"),
+        },
+        Description = "Esta API permite gestionar finanzas personales, incluyendo ingresos, gastos y presupuestos.",
+    });
 
     // Incluir comentarios XML si existen
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -24,16 +36,6 @@ builder.Services.AddSwaggerGen(c =>
     {
         c.IncludeXmlComments(xmlPath);
     }
-
-    // Soporte para Bearer JWT (si usas autenticación)
-    //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    //{
-    //    Description = "Escriba 'Bearer {token}'",
-    //    Name = "Authorization",
-    //    In = ParameterLocation.Header,
-    //    Type = SecuritySchemeType.ApiKey,
-    //    Scheme = "Bearer",
-    //});
 });
 
 // Add CORS services
@@ -43,7 +45,7 @@ builder.Services.AddCors(options =>
         name: "CorsPolicy",
         builder =>
         {
-            builder.WithOrigins("http://localhost", "http://localhost:3000", "https://localhost", "https://localhost:3000")
+            builder.WithOrigins("http://localhost", "http://localhost:3000", "https://localhost", "https://localhost:3000", "https://localhost:5000")
                    .WithMethods("GET", "POST", "PUT")
                    .AllowAnyHeader()
                    .AllowCredentials(); // Allow sending credentials
@@ -63,6 +65,7 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "PersonalFinance API v1");
         c.RoutePrefix = string.Empty;
+        c.DocumentTitle = "API para la gestión de finanzas personales";
     });
 }
 
@@ -79,9 +82,6 @@ app.UseEndpoints(endpoints => endpoints
     .MapControllers()
     );
 
-//app.MapControllers();
+app.MapControllers();
 
 app.Run();
-
-// luego en el navegador solicita: https://localhost:44312/swagger/v1/swagger.json
-// copia/pega la salida del terminal o el body del 500 del Network tab
