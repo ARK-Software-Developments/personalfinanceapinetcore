@@ -64,5 +64,11 @@
         /// </summary>
         [JsonPropertyOrder(9)]
         public int TarjetaConsumoId { get; set; }
+
+        /// <summary>
+        /// Gets or sets propiedad Monto.
+        /// </summary>
+        [JsonPropertyOrder(10)]
+        public decimal Monto { get; set; }
     }
 }

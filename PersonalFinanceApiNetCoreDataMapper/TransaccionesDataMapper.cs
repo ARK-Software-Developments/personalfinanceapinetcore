@@ -142,6 +142,7 @@
                     },
                     Activo = (bool)mySqlDataReader["active"],
                 },
+                Monto = mySqlDataReader["amount"] != DBNull.Value ? (decimal)mySqlDataReader["amount"] : 0,
             };
 
             return entidad;
