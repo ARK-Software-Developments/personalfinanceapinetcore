@@ -16,7 +16,7 @@
     /// </remarks>
     /// <param name="logger">ILogger.</param>
     [ApiController]
-    [Route("api/v1/entities")]
+    [Route("v1/entities")]
     [UserSystemTextJsonAttribute]
     public class EntidadesController(ILogger<EntidadesController> logger) : ControllerBase
     {

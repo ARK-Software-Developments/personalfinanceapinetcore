@@ -12,7 +12,7 @@
     /// BalanceController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/balance")]
+    [Route("v1/balance")]
     [UserSystemTextJsonAttribute]
     public class BalanceController(ILogger<BalanceController> logger) : ControllerBase
     {

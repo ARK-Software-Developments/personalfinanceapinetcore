@@ -9,7 +9,7 @@
     /// CategoriasController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/categories")]
+    [Route("v1/categories")]
     [UserSystemTextJsonAttribute]
     public class CategoriasController : ControllerBase
     {

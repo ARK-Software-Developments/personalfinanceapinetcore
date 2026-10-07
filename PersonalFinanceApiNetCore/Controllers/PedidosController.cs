@@ -14,7 +14,7 @@
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/orders")]
+    [Route("v1/orders")]
     [UserSystemTextJsonAttribute]
     public class PedidosController(ILogger<PedidosController> logger) : ControllerBase
     {

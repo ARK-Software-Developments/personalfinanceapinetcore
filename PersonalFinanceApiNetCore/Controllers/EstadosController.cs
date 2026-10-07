@@ -14,7 +14,7 @@
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/status")]
+    [Route("v1/status")]
     [UserSystemTextJsonAttribute]
     public class EstadosController(ILogger<EstadosController> logger) : ControllerBase
     {

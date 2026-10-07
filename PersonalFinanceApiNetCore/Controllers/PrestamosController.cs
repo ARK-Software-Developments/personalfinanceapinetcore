@@ -14,7 +14,7 @@
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/loans")]
+    [Route("v1/loans")]
     [UserSystemTextJsonAttribute]
     public class PrestamosController(ILogger<PrestamosController> logger) : ControllerBase
     {

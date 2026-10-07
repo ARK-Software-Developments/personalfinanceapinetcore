@@ -12,7 +12,7 @@
     /// CalendariosVencimientosController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/duedatesschedules")]
+    [Route("v1/duedatesschedules")]
     [UserSystemTextJsonAttribute]
     public class CalendariosVencimientosController(ILogger<CalendariosVencimientosController> logger) : ControllerBase
     {

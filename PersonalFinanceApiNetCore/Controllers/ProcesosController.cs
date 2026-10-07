@@ -12,7 +12,7 @@
     /// ProcesosController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/process")]
+    [Route("v1/process")]
     [UserSystemTextJsonAttribute]
     public class ProcesosController(ILogger<ProcesosController> logger) : ControllerBase
     {

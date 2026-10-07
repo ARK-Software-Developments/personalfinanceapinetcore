@@ -14,7 +14,7 @@
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/menus")]
+    [Route("v1/menus")]
     [UserSystemTextJsonAttribute]
     public class MenuController(ILogger<MenuController> logger) : ControllerBase
     {

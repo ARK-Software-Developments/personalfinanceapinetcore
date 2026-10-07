@@ -12,7 +12,7 @@
     /// TransaccionesController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/transactions")]
+    [Route("v1/transactions")]
     [UserSystemTextJsonAttribute]
     public class TransaccionesController(ILogger<TransaccionesController> logger) : ControllerBase
     {

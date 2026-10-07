@@ -8,7 +8,7 @@
     /// PedidosDetalleController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/ordersdetails")]
+    [Route("v1/ordersdetails")]
     [UserSystemTextJsonAttribute]
     public class PedidosDetalleController : ControllerBase
     {

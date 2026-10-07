@@ -8,7 +8,7 @@
     /// TipoGastoController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/typeofexpense")]
+    [Route("v1/typeofexpense")]
     [UserSystemTextJsonAttribute]
     public class TipoGastoController : ControllerBase
     {

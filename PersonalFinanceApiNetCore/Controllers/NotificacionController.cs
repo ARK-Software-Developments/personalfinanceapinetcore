@@ -12,7 +12,7 @@
     /// NotificacionController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/notifications")]
+    [Route("v1/notifications")]
     [UserSystemTextJsonAttribute]
     public class NotificacionController(ILogger<NotificacionController> logger) : ControllerBase
     {

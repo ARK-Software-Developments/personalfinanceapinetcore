@@ -12,7 +12,7 @@
     /// IngresoDetalleController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/incomedetails")]
+    [Route("v1/incomedetails")]
     [UserSystemTextJsonAttribute]
     public class IngresoDetalleController(ILogger<IngresoDetalleController> logger) : ControllerBase
     {

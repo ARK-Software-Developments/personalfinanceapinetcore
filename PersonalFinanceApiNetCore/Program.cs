@@ -36,6 +36,16 @@ builder.Services.AddSwaggerGen(c =>
     {
         c.IncludeXmlComments(xmlPath);
     }
+
+    // Soporte para Bearer JWT(si usas autenticación)
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Escriba 'Bearer {token}'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+    });
 });
 
 // Add CORS services
@@ -56,6 +66,13 @@ var config = builder.Configuration.GetConnectionString("Default");
 
 var app = builder.Build();
 
+// Si la app se publica en un path base (virtual directory), configúralo mediante variable de entorno PATH_BASE
+var pathBase = Environment.GetEnvironmentVariable("PATH_BASE") ?? string.Empty;
+if (!string.IsNullOrEmpty(pathBase))
+{
+    app.UsePathBase(pathBase); // Ej: "/miApp"
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -63,9 +80,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "PersonalFinance API v1");
-        c.RoutePrefix = string.Empty;
-        c.DocumentTitle = "API para la gestión de finanzas personales";
+        var swaggerJson = string.IsNullOrEmpty(pathBase) ? "/swagger/v1/swagger.json" : $"{pathBase}/swagger/v1/swagger.json";
+        c.SwaggerEndpoint(swaggerJson, "PersonalFinance API v1");
+        c.RoutePrefix = "swagger"; // sirve en /swagger
     });
 }
 

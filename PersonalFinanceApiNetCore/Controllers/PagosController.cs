@@ -14,7 +14,7 @@
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/payments")]
+    [Route("v1/payments")]
     [UserSystemTextJsonAttribute]
     public class PagosController(ILogger<PagosController> logger) : ControllerBase
     {

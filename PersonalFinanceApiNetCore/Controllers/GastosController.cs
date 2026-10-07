@@ -12,7 +12,7 @@
     /// GastosController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/bills")]
+    [Route("v1/bills")]
     [UserSystemTextJsonAttribute]
     public class GastosController(ILogger<GastosController> logger) : ControllerBase
     {

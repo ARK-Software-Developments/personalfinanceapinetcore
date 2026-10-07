@@ -12,7 +12,7 @@
     /// TarjetasConsumosController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/creditcardspending")]
+    [Route("v1/creditcardspending")]
     [UserSystemTextJsonAttribute]
     public class TarjetasConsumosController(ILogger<TarjetasConsumosController> logger) : ControllerBase
     {

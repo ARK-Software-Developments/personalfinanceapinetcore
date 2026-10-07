@@ -14,7 +14,7 @@
     /// </summary>
     [EnableCors("CorsPolicy")]
     [ApiController]
-    [Route("api/v1/investments")]
+    [Route("v1/investments")]
     [UserSystemTextJsonAttribute]
     public class InversionesController(ILogger<InversionesController> logger) : ControllerBase
     {

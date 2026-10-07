@@ -12,7 +12,7 @@
     /// TarjetasController.
     /// </summary>
     [ApiController]
-    [Route("api/v1/cards")]
+    [Route("v1/cards")]
     [UserSystemTextJsonAttribute]
     public class TarjetasController(ILogger<TarjetasController> logger) : ControllerBase
     {
